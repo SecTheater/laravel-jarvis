@@ -2,9 +2,11 @@
 
 namespace SecTheater\Jarvis\Role;
 
-interface RoleInterface {
+interface RoleInterface
+{
+    public function findRoleBySlug($slug);
 
-	function findRoleBySlug($slug);
-	function findRoleByName($name);
-	function findRoleById($id);
+    public function findRoleByName($name);
+
+    public function findRoleById($id);
 }

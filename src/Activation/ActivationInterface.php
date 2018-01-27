@@ -1,26 +1,30 @@
 <?php
+
 namespace SecTheater\Jarvis\Activation;
+
 use SecTheater\Jarvis\Interfaces\RestrictionInterface;
-interface ActivationInterface {
 
-function tokenExists(RestrictionInterface $user, bool $create = false);
-	function completed(RestrictionInterface $user);
+interface ActivationInterface
+{
+    public function tokenExists(RestrictionInterface $user, bool $create = false);
 
-	function complete(RestrictionInterface $user);
+    public function completed(RestrictionInterface $user);
 
-	function clear(bool $completed = false):bool;
+    public function complete(RestrictionInterface $user);
 
-	function clearFor(RestrictionInterface $user, bool $completed = false, bool $any = false):bool;
+    public function clear(bool $completed = false):bool;
 
-	function generateToken(RestrictionInterface $user);
+    public function clearFor(RestrictionInterface $user, bool $completed = false, bool $any = false):bool;
 
-	function regenerateToken(RestrictionInterface $user, bool $create = false);
+    public function generateToken(RestrictionInterface $user);
 
-	function removeExpired();
-	function getActivationsHave($relation, $operator = '=', $condition = null);
+    public function regenerateToken(RestrictionInterface $user, bool $create = false);
 
-	function getActivationsDoesntHave($relation, array $condition = null);
+    public function removeExpired();
 
-	function getActivationsWhereHave($relation, array $condition);
+    public function getActivationsHave($relation, $operator = '=', $condition = null);
 
+    public function getActivationsDoesntHave($relation, array $condition = null);
+
+    public function getActivationsWhereHave($relation, array $condition);
 }

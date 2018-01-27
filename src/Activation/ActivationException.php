@@ -1,6 +1,7 @@
 <?php
 
 namespace SecTheater\Jarvis\Activation;
-class ActivationException extends \RuntimeException {
 
+class ActivationException extends \RuntimeException
+{
 }

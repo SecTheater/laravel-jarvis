@@ -2,10 +2,15 @@
 
 namespace SecTheater\Jarvis\User;
 
-interface UserInterface {
-	function getUsersHave($relation, $operator = '=', $condition = null);
-	function getUsersDoesntHave($relation, array $condition = null);
-	function getUsersWhereHave($relation, array $condition);
-	function isOnline(int $id);
-	function PeopleCommentedOnAPost(\App\Post $post);
+interface UserInterface
+{
+    public function getUsersHave($relation, $operator = '=', $condition = null);
+
+    public function getUsersDoesntHave($relation, array $condition = null);
+
+    public function getUsersWhereHave($relation, array $condition);
+
+    public function isOnline(int $id);
+
+    public function PeopleCommentedOnAPost(\App\Post $post);
 }
