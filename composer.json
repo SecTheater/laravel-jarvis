@@ -1,0 +1,38 @@
+{
+    "name": "sectheater/laravel-jarvis",
+    "description": "Achieve Your Ambition with me",
+    "type": "library",
+    "license": "MIT",
+     "keywords": ["laravel", "admin", "Roles","Authentication","Authorization","CMS","Advanced Blogger"],
+    "authors": [
+        {
+            "name": "Mohammed Osama",
+            "email": "mohammedosama@sectheater.org"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.0",
+        "laravel/framework": "5.5.*"
+    
+    },
+    "require-dev": {
+          "laravel/framework": "5.5.*"
+     },
+    "autoload": {
+         "psr-4": {
+            "SecTheater\\Jarvis\\" : "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "SecTheater\\Jarvis\\Providers\\JarvisServiceProvider"
+            ],
+            "aliases": {
+                "Jarvis": "SecTheater\\Jarvis\\Facades\\Jarvis"
+            }   
+        
+        }
+    }
+}
