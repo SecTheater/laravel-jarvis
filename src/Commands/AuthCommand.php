@@ -52,12 +52,12 @@ class AuthCommand extends Command
         foreach ($files as $file) {
             $file_content = $this->filesystem->get($file);
             if (strpos($file_content, 'namespace SecTheater\\Jarvis\\Http\\Controllers')) {
-                $namespace = '\\App\\Http\\Controllers';
+                $namespace = 'App\\Http\\Controllers';
                 $file_content = str_replace('namespace SecTheater\\Jarvis\\Http\\Controllers', 'namespace '.$namespace, $file_content);
                 $this->filesystem->put($file->getRealPath(), $file_content);
             }
             if (strpos($file_content, 'use SecTheater\\Jarvis\\Http\\Requests')) {
-                $namesapce = '\\App\\Http\\Requests';
+                $namesapce = 'App\\Http\\Requests';
                 $file_content = str_replace('use SecTheater\\Jarvis\\Http\\Requests', 'use '.$namespace, $file_content);
                 $this->filesystem->put($file->getRealPath(), $file_content);
             }
@@ -72,7 +72,7 @@ class AuthCommand extends Command
         foreach ($files as $file) {
             $file_content = $this->filesystem->get($file);
             if (strpos($file_content, 'namespace SecTheater\\Jarvis\\Http\\Rules')) {
-                $namespace = '\\App\\Rules';
+                $namespace = 'App\\Rules';
                 $file_content = str_replace('namespace SecTheater\\Jarvis\\Http\\Rules', 'namespace '.$namespace, $file_content);
                 $this->filesystem->put($file->getRealPath(), $file_content);
             }
@@ -92,7 +92,7 @@ class AuthCommand extends Command
                 $this->filesystem->put($file->getRealPath(), $file_content);
             }
             if (strpos($file_content, 'use SecTheater\\Jarvis\\Http\\Rules')) {
-                $namespace = '\\App\\Rules';
+                $namespace = 'App\\Rules';
                 $file_content = str_replace('use SecTheater\\Jarvis\\Http\\Rules', 'use '.$namespace, $file_content);
                 $this->filesystem->put($file->getRealPath(), $file_content);
             }
