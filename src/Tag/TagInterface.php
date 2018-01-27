@@ -1,9 +1,12 @@
 <?php
+
 namespace SecTheater\Jarvis\Tag;
-interface TagInterface {
-	function getTagsHave($relation, $operator = '=', $condition = null);
 
-	function getTagsDoesntHave($relation, array $condition = null);
+interface TagInterface
+{
+    public function getTagsHave($relation, $operator = '=', $condition = null);
 
-	function getTagsWhereHave($relation, array $condition);
+    public function getTagsDoesntHave($relation, array $condition = null);
+
+    public function getTagsWhereHave($relation, array $condition);
 }

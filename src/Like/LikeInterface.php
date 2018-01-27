@@ -1,22 +1,22 @@
 <?php
 
 namespace SecTheater\Jarvis\Like;
-interface LikeInterface {
 
-	function getLikesHave($relation, $operator = '=', $condition = null);
+interface LikeInterface
+{
+    public function getLikesHave($relation, $operator = '=', $condition = null);
 
-	function getLikesDoesntHave($relation, array $condition = null);
+    public function getLikesDoesntHave($relation, array $condition = null);
 
-	function getLikesWhereHave($relation, array $condition);
+    public function getLikesWhereHave($relation, array $condition);
 
-	function likeStatus($type, int $user_id = null);
+    public function likeStatus($type, int $user_id = null);
 
-	function likeCounter($type, bool $status = true):int;
+    public function likeCounter($type, bool $status = true):int;
 
-	function like($type);
+    public function like($type);
 
-	function removeLike($type);
+    public function removeLike($type);
 
-	function dislike($type);
-
+    public function dislike($type);
 }

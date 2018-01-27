@@ -1,17 +1,26 @@
 <?php
+
 namespace SecTheater\Jarvis\Interfaces;
+
 use Illuminate\Database\Eloquent\Model;
 
-interface RepositoryInterface {
+interface RepositoryInterface
+{
+    public function all();
 
-function all();
-	function find($attribute);
-	function findBy($attribute, $operator = '=', $value = null);
-	function create(array $attributes);
-	function update(Model $model, array $attributes);
-	function delete(Model $model);
-	function ordered($attribute, $order = 'desc');
-	function exists($condition, $operator = '=', $value = null);
-	function __call($method, $arguments);
+    public function find($attribute);
 
+    public function findBy($attribute, $operator = '=', $value = null);
+
+    public function create(array $attributes);
+
+    public function update(Model $model, array $attributes);
+
+    public function delete(Model $model);
+
+    public function ordered($attribute, $order = 'desc');
+
+    public function exists($condition, $operator = '=', $value = null);
+
+    public function __call($method, $arguments);
 }

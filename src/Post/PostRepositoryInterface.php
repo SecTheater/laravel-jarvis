@@ -1,24 +1,24 @@
 <?php
 
 namespace SecTheater\Jarvis\Post;
-interface PostRepositoryInterface {
 
-	function getPopularPosts($limit = 5);
+interface PostRepositoryInterface
+{
+    public function getPopularPosts($limit = 5);
 
-	function getApproved($relation = null, array $condition = null);
+    public function getApproved($relation = null, array $condition = null);
 
-	function getUnapproved($relation = null, array $condition = null);
+    public function getUnapproved($relation = null, array $condition = null);
 
-	function recentlyApproved();
+    public function recentlyApproved();
 
-	function recentPosts(array $condition = null);
+    public function recentPosts(array $condition = null);
 
-	function archives();
+    public function archives();
 
-	function getPostsHave($relation, $operator = '=', $condition = null);
+    public function getPostsHave($relation, $operator = '=', $condition = null);
 
-	function getPostsDoesntHave($relation, array $condition = null);
+    public function getPostsDoesntHave($relation, array $condition = null);
 
-	function getPostsWhereHave($relation, array $condition);
-
+    public function getPostsWhereHave($relation, array $condition);
 }

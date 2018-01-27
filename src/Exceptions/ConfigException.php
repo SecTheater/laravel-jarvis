@@ -1,6 +1,7 @@
 <?php
 
 namespace SecTheater\Jarvis\Exceptions;
-class ConfigException extends \RuntimeException {
 
+class ConfigException extends \RuntimeException
+{
 }

@@ -1,23 +1,30 @@
 <?php
+
 namespace SecTheater\Jarvis\Role;
-use Illuminate\Database\Eloquent\Model;
 
 use SecTheater\Jarvis\Repositories\Repository;
 
-class RoleRepository extends Repository implements RoleInterface {
-	protected $model;
-	function __construct(EloquentRole $model) {
-		$this->model = $model;
-	}
+class RoleRepository extends Repository implements RoleInterface
+{
+    protected $model;
 
-	function findRoleBySlug($slug) {
-		return $this->model->whereSlug($slug)->first();
-	}
-	function findRoleByName($name) {
-		return $this->model->whereName($name)->first();
-	}
-	function findRoleById($id) {
-		return $this->model->whereId($id)->first();
-	}
+    public function __construct(EloquentRole $model)
+    {
+        $this->model = $model;
+    }
 
+    public function findRoleBySlug($slug)
+    {
+        return $this->model->whereSlug($slug)->first();
+    }
+
+    public function findRoleByName($name)
+    {
+        return $this->model->whereName($name)->first();
+    }
+
+    public function findRoleById($id)
+    {
+        return $this->model->whereId($id)->first();
+    }
 }

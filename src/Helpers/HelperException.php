@@ -2,6 +2,6 @@
 
 namespace SecTheater\Jarvis\Exceptions;
 
-class HelperException extends \RuntimeException {
-
+class HelperException extends \RuntimeException
+{
 }
