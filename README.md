@@ -85,7 +85,7 @@ APP_URL=http://localhost:8000
 3- It also sets up the authentication routes.
 > Jarvis doesn't depend on models at all, Everything runs through the repositories to provide you the best quality.
 ![Installation Preview](http://sectheater.org/assets/images/doc/installation.png)
-### 4. Usage
+### 4. Sample Usage
 ##### 4.1 Registering A User 
 Whenever you try to register a user, just supply Jarivs with the data and the slug of the role which you want to assign to this user
 ```bash
