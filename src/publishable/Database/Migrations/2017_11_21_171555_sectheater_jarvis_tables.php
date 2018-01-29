@@ -33,7 +33,7 @@ class SectheaterJarvisTables extends Migration
             $table->integer('user_id')->unsigned();
             $table->string('title')->unique();
             $table->text('body');
-            $tale->integer('updated_by')->unsigned()->nullable();
+            $table->integer('updated_by')->unsigned()->nullable();
             if (config('jarvis.posts.approve')) {
                 $table->boolean('approved')->default(0);
                 $table->integer('approved_by')->unsigned()->nullable();
