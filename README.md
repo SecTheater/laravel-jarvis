@@ -4,7 +4,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/sectheater/laravel-jarvis.svg?style=flat-square)](https://packagist.org/packages/sectheater/laravel-jarvis)
 
-[![Total Downloads](https://img.shields.io/packagist/dt/sectheater/laravel-jarvis.svg?style=flat-square)](https://packagist.org/packages/sectheater/laravel-jarvis)
+<!-- [![Total Downloads](https://img.shields.io/packagist/dt/sectheater/laravel-jarvis.svg?style=flat-square)](https://packagist.org/packages/sectheater/laravel-jarvis) -->
 
 <p align="center"> Made with ❤️ by  SecTheater Foundation:  http://www.sectheater.org</p>
 <p align="center">Package Documentation : http://www.sectheater.org/documentation
