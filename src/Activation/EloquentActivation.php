@@ -9,6 +9,9 @@ class EloquentActivation extends Model
 {
     protected $table = 'activations';
     protected $guarded = [];
+    protected $casts = [
+      'completed' => 'boolean'
+    ];
 
     public function user()
     {
