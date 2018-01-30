@@ -57,7 +57,7 @@ class PostObserver
             $post->likes()->delete();
         }
         if (config('jarvis.tags.register')) {
-            $post->tags()->delete();
+            $post->tags()->detach();
         }
     }
 }
