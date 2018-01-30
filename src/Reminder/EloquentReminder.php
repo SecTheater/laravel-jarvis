@@ -8,6 +8,10 @@ class EloquentReminder extends Model
 {
     protected $table = 'reminders';
     protected $guarded = [];
+    protected $casts = [
+      'completed' => 'boolean'
+    ];
+
 
     public function user()
     {
