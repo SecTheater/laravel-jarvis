@@ -39,7 +39,7 @@ class ControllersCommand extends Command
      */
     public function handle()
     {
-        $files = $this->filesystem->allFiles(base_path('vendor/sectheater/jarvis/src/Http/Controllers/'));
+        $files = $this->filesystem->allFiles(base_path('vendor/sectheater/laravel-jarvis/src/Http/Controllers/'));
         $destination_namespace = trim(str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $this->argument('namespace') ?? '\\app\\Http\\Controllers'), '/');
         $destination_namespace = starts_with($destination_namespace, 'App') ? lcfirst($destination_namespace) : $destination_namespace;
         $bar = $this->output->createProgressBar(8);
