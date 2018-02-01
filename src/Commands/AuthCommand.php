@@ -39,10 +39,10 @@ class AuthCommand extends Command
      */
     public function handle()
     {
-        $this->filesystem->copyDirectory('vendor/sectheater/jarvis/src/Http/Controllers/Auth', 'app/Http/Controllers/Auth');
-        $this->filesystem->copyDirectory('vendor/sectheater/jarvis/src/publishable/Views/Auth', 'resources/views/auth');
-        $this->filesystem->copyDirectory('vendor/sectheater/jarvis/src/Http/Requests', 'app/Http/Requests');
-        $this->filesystem->copyDirectory('vendor/sectheater/jarvis/src/Http/Rules', 'app/Rules');
+        $this->filesystem->copyDirectory('vendor/sectheater/laravel-jarvis/src/Http/Controllers/Auth', 'app/Http/Controllers/Auth');
+        $this->filesystem->copyDirectory('vendor/sectheater/laravel-jarvis/src/publishable/Views/Auth', 'resources/views/auth');
+        $this->filesystem->copyDirectory('vendor/sectheater/laravel-jarivs/src/Http/Requests', 'app/Http/Requests');
+        $this->filesystem->copyDirectory('vendor/sectheater/laravel-jarivs/src/Http/Rules', 'app/Rules');
         $bar = $this->output->createProgressBar(8);
         $bar->setFormat('[<fg=magenta>%bar%</>]');
 
