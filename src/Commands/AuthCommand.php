@@ -41,8 +41,6 @@ class AuthCommand extends Command
     {
         $this->filesystem->copyDirectory('vendor/sectheater/laravel-jarvis/src/Http/Controllers/Auth', 'app/Http/Controllers/Auth');
         $this->filesystem->copyDirectory('vendor/sectheater/laravel-jarvis/src/publishable/Views/Auth', 'resources/views/auth');
-        $this->filesystem->copyDirectory('vendor/sectheater/laravel-jarvis/src/Http/Requests', 'app/Http/Requests');
-        $this->filesystem->copyDirectory('vendor/sectheater/laravel-jarvis/src/Http/Rules', 'app/Rules');
         $bar = $this->output->createProgressBar(8);
         $bar->setFormat('[<fg=magenta>%bar%</>]');
 
@@ -66,13 +64,13 @@ class AuthCommand extends Command
         $bar->advance();
 
         $this->info('Publishing Custom Validation Rules !');
+        $this->call('sectheater:custom-validation');
         $bar->advance();
-
         $files = $this->filesystem->files(base_path('app/Rules'));
         foreach ($files as $file) {
             $file_content = $this->filesystem->get($file);
             if (strpos($file_content, 'namespace SecTheater\\Jarvis\\Http\\Rules')) {
-                $namespace = 'App\\Http\\Requests';
+                $namespace = '\\App\\Rules';
                 $file_content = str_replace('namespace SecTheater\\Jarvis\\Http\\Rules', 'namespace '.$namespace, $file_content);
                 $this->filesystem->put($file->getRealPath(), $file_content);
             }
@@ -82,7 +80,9 @@ class AuthCommand extends Command
         $this->info('Custom Rules namesapce is set !');
         $bar->advance();
 
+
         $this->info('Publishing the Request Validation.');
+        $this->call('sectheater:requests');
         $files = $this->filesystem->files(base_path('app/Http/Requests'));
         foreach ($files as $file) {
             $file_content = $this->filesystem->get($file);
