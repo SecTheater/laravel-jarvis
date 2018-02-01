@@ -72,7 +72,7 @@ class AuthCommand extends Command
         foreach ($files as $file) {
             $file_content = $this->filesystem->get($file);
             if (strpos($file_content, 'namespace SecTheater\\Jarvis\\Http\\Rules')) {
-                $namespace = 'App\\Rules';
+                $namespace = 'App\\Http\\Requests';
                 $file_content = str_replace('namespace SecTheater\\Jarvis\\Http\\Rules', 'namespace '.$namespace, $file_content);
                 $this->filesystem->put($file->getRealPath(), $file_content);
             }
