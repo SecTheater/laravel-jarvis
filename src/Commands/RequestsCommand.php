@@ -39,7 +39,7 @@ class RequestsCommand extends Command
      */
     public function handle()
     {
-        $files = $this->filesystem->files(base_path('vendor/sectheater/jarvis/src/Http/Requests'));
+        $files = $this->filesystem->files(base_path('vendor/sectheater/laravel-jarvis/src/Http/Requests'));
         $destination_namespace = trim(str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $this->argument('namespace') ?? '\\app\\Http\\Requests'), '/');
         $destination_namespace = starts_with($destination_namespace, 'App') ? lcfirst($destination_namespace) : $destination_namespace;
         if (str_contains($destination_namespace, 'app')) {
