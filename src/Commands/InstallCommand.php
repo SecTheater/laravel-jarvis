@@ -53,6 +53,7 @@ class InstallCommand extends Command
      */
     public function handle()
     {
+
         $middleware_contents = $this->filesystem->get(base_path('app/Http/Kernel.php'));
         if (false === strpos($middleware_contents, '\\SecTheater\\Jarvis\\Http\\Middleware\\JarvisMiddleware::class')) {
             $contents = str_replace('protected $routeMiddleware = [', 'protected $routeMiddleware = [
@@ -60,17 +61,20 @@ class InstallCommand extends Command
             $this->filesystem->put(base_path('app/Http/Kernel.php'), $contents);
         }
         foreach ($this->aliases as $name => $alias) {
-            $app_content = $this->filesystem->get(base_path('config/app.php'));
             if ($name == 'Jarvis' || $name == 'roles' || $name == 'users' || $name == 'reminders') {
+            $app_content = $this->filesystem->get(base_path('config/app.php'));
                 if (false === strpos($app_content, $alias)) {
                     $contents = str_replace('\'aliases\' => [', "'aliases' => [ \n $alias", $app_content);
                     $this->filesystem->put(base_path('config/app.php'), $contents);
                 }
                 continue;
             }
+
             if (config('jarvis.'.$name.'.register')) {
+                $app_content = $this->filesystem->get(base_path('config/app.php'));
+
                 if (false === strpos($app_content, $alias)) {
-                    $contents = str_replace('\'aliases\'       => [', "'aliases'       => [ \n $alias", $app_content);
+                    $contents = str_replace('\'aliases\' => [', "'aliases' => [ \n \t \t $alias", $app_content);
                     $this->filesystem->put(base_path('config/app.php'), $contents);
                 }
             }
