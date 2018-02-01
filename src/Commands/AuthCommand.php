@@ -80,7 +80,6 @@ class AuthCommand extends Command
         $this->info('Custom Rules namesapce is set !');
         $bar->advance();
 
-
         $this->info('Publishing the Request Validation.');
         $this->call('sectheater:requests');
         $files = $this->filesystem->files(base_path('app/Http/Requests'));
