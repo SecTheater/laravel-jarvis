@@ -57,18 +57,6 @@ You will also want to update your website URL inside of the `APP_URL` variable i
 APP_URL=http://localhost:8000
 ```
 
-> Add The Service Provider To your config/app.php under the Providers section
-
-```bash
-	SecTheater\Jarvis\Providers\JarvisServiceProvider::class
-```
-
->  Add Aliases To your config/app.php
-
-```bash
-    SecTheater\Jarvis\Providers\JarvisServiceProvider::class,
-
-```
 ### 3. Getting Your Environment Ready.
 
 #### Just Run The following command.
