@@ -46,11 +46,11 @@ class ControllersCommand extends Command
         $bar->setFormat('[<fg=magenta>%bar%</>]');
         if (str_contains($destination_namespace, 'app')) {
             if (!$this->filesystem->isDirectory($destination_namespace)) {
-                $this->filesystem->makeDirectory($destination_namespace,0755,false,true);
+                $this->filesystem->makeDirectory($destination_namespace, 0755, false, true);
             }
         } else {
             if (!$this->filesystem->isDirectory(app_path($destination_namespace))) {
-                $this->filesystem->makeDirectory(app_path($destination_namespace),0755,false,true);
+                $this->filesystem->makeDirectory(app_path($destination_namespace), 0755, false, true);
             }
         }
         $bar->advance();
@@ -66,9 +66,9 @@ class ControllersCommand extends Command
             if ($file->isDir()) {
                 if ($subfolder) {
                     if (!$this->filesystem->isDirectory($destination_namespace.DIRECTORY_SEPARATOR.$subfolder)) {
-                        $this->filesystem->makeDirectory($destination_namespace.DIRECTORY_SEPARATOR.$subfolder,0755,false,true);
+                        $this->filesystem->makeDirectory($destination_namespace.DIRECTORY_SEPARATOR.$subfolder, 0755, false, true);
                     }
-                    $this->filesystem->copyDirectory($path, $destination_namespace.DIRECTORY_SEPARATOR.$subfolder,0755,false,true);
+                    $this->filesystem->copyDirectory($path, $destination_namespace.DIRECTORY_SEPARATOR.$subfolder, 0755, false, true);
                 } else {
                     $this->filesystem->copyDirectory($path, $destination_namespace);
                 }
@@ -76,7 +76,7 @@ class ControllersCommand extends Command
             if ($file->isFile()) {
                 if ($subfolder) {
                     if (!$this->filesystem->isDirectory($destination_namespace.DIRECTORY_SEPARATOR.$subfolder)) {
-                        $this->filesystem->makeDirectory($destination_namespace.DIRECTORY_SEPARATOR.$subfolder,0755,false,true);
+                        $this->filesystem->makeDirectory($destination_namespace.DIRECTORY_SEPARATOR.$subfolder, 0755, false, true);
                     }
 
                     $this->filesystem->copy($path, $destination_namespace.DIRECTORY_SEPARATOR.$subfolder.DIRECTORY_SEPARATOR.$file->getFileName());
