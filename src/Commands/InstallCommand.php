@@ -89,8 +89,8 @@ class InstallCommand extends Command
             );
         }
         $this->call('vendor:publish', ['--provider' => JarvisServiceProvider::class]);
-        $os = (substr(php_uname('a'), 0, 3));        
-        $name = ( strtoupper($os) !== 'WIN' )? posix_getpwuid(posix_geteuid())['name'] : null;
+        $os = (substr(php_uname('a'), 0, 3));
+        $name = (strtoupper($os) !== 'WIN') ? posix_getpwuid(posix_geteuid())['name'] : null;
         $time = (\Carbon\Carbon::now()->format('A') === 'AM') ? 'Morning' : 'Evening';
         $this->info("Good $time $name , Hopefully you fill up this survey to designate the features within your application");
         $value = $this->choice('Does Your Application contain of Comments,Replies,Posts,Authentication,Tags & Likes ? ', ['Yes', 'No']);
