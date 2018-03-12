@@ -44,11 +44,11 @@ class CustomValidationCommand extends Command
         $destination_namespace = starts_with($destination_namespace, 'App') ? lcfirst($destination_namespace) : $destination_namespace;
         if (str_contains($destination_namespace, 'app')) {
             if (!$this->filesystem->isDirectory($destination_namespace)) {
-                $this->filesystem->makeDirectory(app_path('Rules'),0755,false,true);
+                $this->filesystem->makeDirectory(app_path('Rules'), 0755, false, true);
             }
         } else {
             if (!$this->filesystem->isDirectory(app_path($destination_namespace))) {
-                $this->filesystem->makeDirectory(app_path($destination_namespace),0755,false,true);
+                $this->filesystem->makeDirectory(app_path($destination_namespace), 0755, false, true);
             }
         }
         foreach ($files as $file) {
