@@ -40,21 +40,21 @@ class CustomValidationCommand extends Command
     public function handle()
     {
         $files = $this->filesystem->files(base_path('vendor/sectheater/laravel-jarvis/src/Http/Rules'));
-        $destination_namespace = trim(str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $this->argument('namespace') ?? '\\app\\Rules'), '/');
+        $destination_namespace = trim(str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $this->argument('namespace') ?? 'app\\Rules'), '/');
         $destination_namespace = starts_with($destination_namespace, 'App') ? lcfirst($destination_namespace) : $destination_namespace;
         if (str_contains($destination_namespace, 'app')) {
             if (!$this->filesystem->isDirectory($destination_namespace)) {
-                $this->filesystem->makeDirectory($destination_namespace);
+                $this->filesystem->makeDirectory(app_path('Rules'),0755,false,true);
             }
         } else {
             if (!$this->filesystem->isDirectory(app_path($destination_namespace))) {
-                $this->filesystem->makeDirectory(app_path($destination_namespace));
+                $this->filesystem->makeDirectory(app_path($destination_namespace),0755,false,true);
             }
         }
         foreach ($files as $file) {
             $parts = explode(DIRECTORY_SEPARATOR, $file);
             $filename = end($parts);
-            $path = $file->getPath().'/'.$filename;
+            $path = $file->getRealPath();
             if ($file->isFile()) {
                 $this->filesystem->copy($path, $destination_namespace.DIRECTORY_SEPARATOR.$file->getFileName());
                 $file_content = $this->filesystem->get($destination_namespace.DIRECTORY_SEPARATOR.$file->getFileName());
