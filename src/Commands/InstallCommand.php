@@ -89,7 +89,8 @@ class InstallCommand extends Command
             );
         }
         $this->call('vendor:publish', ['--provider' => JarvisServiceProvider::class]);
-        $name = posix_getpwuid(posix_geteuid())['name'];
+        $os = (substr(php_uname('a'), 0, 3));        
+        $name = ( strtoupper($os) !== 'WIN' )? posix_getpwuid(posix_geteuid())['name'] : null;
         $time = (\Carbon\Carbon::now()->format('A') === 'AM') ? 'Morning' : 'Evening';
         $this->info("Good $time $name , Hopefully you fill up this survey to designate the features within your application");
         $value = $this->choice('Does Your Application contain of Comments,Replies,Posts,Authentication,Tags & Likes ? ', ['Yes', 'No']);
@@ -144,7 +145,7 @@ class InstallCommand extends Command
                 config(['jarvis.activation.register' => true]);
                 $bar->advance();
                 $value = (int) $this->ask('How much time does the token need to be expired in days ?');
-                if (is_int($value) && $vale >= 1) {
+                if (is_int($value) && $value >= 1) {
                     config(['jarvis.activation.expiration' => $value]);
                 } else {
                     $this->info('The value is not an integer, default one is set instead.');
