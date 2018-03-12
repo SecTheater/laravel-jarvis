@@ -40,7 +40,7 @@ class ControllersCommand extends Command
     public function handle()
     {
         $files = $this->filesystem->allFiles(base_path('vendor/sectheater/laravel-jarvis/src/Http/Controllers/'));
-        $destination_namespace = trim(str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $this->argument('namespace') ?? '\\app\\Http\\Controllers'), '/');
+        $destination_namespace = trim(str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $this->argument('namespace') ?? 'app\\Http\\Controllers'), '/');
         $destination_namespace = starts_with($destination_namespace, 'App') ? lcfirst($destination_namespace) : $destination_namespace;
         $bar = $this->output->createProgressBar(8);
         $bar->setFormat('[<fg=magenta>%bar%</>]');
@@ -62,13 +62,13 @@ class ControllersCommand extends Command
             if ($filename == 'Controller.php') {
                 continue;
             }
-            $path = $file->getPath().'/'.$filename;
+            $path = $file->getRealPath();
             if ($file->isDir()) {
                 if ($subfolder) {
                     if (!$this->filesystem->isDirectory($destination_namespace.DIRECTORY_SEPARATOR.$subfolder)) {
                         $this->filesystem->makeDirectory($destination_namespace.DIRECTORY_SEPARATOR.$subfolder, 0755, false, true);
                     }
-                    $this->filesystem->copyDirectory($path, $destination_namespace.DIRECTORY_SEPARATOR.$subfolder, 0755, false, true);
+                    $this->filesystem->copyDirectory($path, $destination_namespace.DIRECTORY_SEPARATOR.$subfolder);
                 } else {
                     $this->filesystem->copyDirectory($path, $destination_namespace);
                 }
@@ -78,7 +78,6 @@ class ControllersCommand extends Command
                     if (!$this->filesystem->isDirectory($destination_namespace.DIRECTORY_SEPARATOR.$subfolder)) {
                         $this->filesystem->makeDirectory($destination_namespace.DIRECTORY_SEPARATOR.$subfolder, 0755, false, true);
                     }
-
                     $this->filesystem->copy($path, $destination_namespace.DIRECTORY_SEPARATOR.$subfolder.DIRECTORY_SEPARATOR.$file->getFileName());
                     $file_content = $this->filesystem->get($destination_namespace.DIRECTORY_SEPARATOR.$subfolder.DIRECTORY_SEPARATOR.$file->getFileName());
                     if (strpos($file_content, 'namespace SecTheater\\Jarvis\\Http\\Controllers')) {
