@@ -55,7 +55,7 @@ class AuthCommand extends Command
                 $this->filesystem->put($file->getRealPath(), $file_content);
             }
             if (strpos($file_content, 'use SecTheater\\Jarvis\\Http\\Requests')) {
-                $namesapce = 'App\\Http\\Requests';
+                $namespace = 'App\\Http\\Requests';
                 $file_content = str_replace('use SecTheater\\Jarvis\\Http\\Requests', 'use '.$namespace, $file_content);
                 $this->filesystem->put($file->getRealPath(), $file_content);
             }
