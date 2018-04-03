@@ -37,7 +37,7 @@ Assign Tags to whatever on your application
 After creating your new Laravel application you can include the Jarvis package with the following command: 
 
 ```bash
-composer require sectheater/laravel-jarvis
+composer require sectheater/laravel-jarvis:dev-master
 ```
 
 ### 2. Add the DB Credentials & APP_URL
