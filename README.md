@@ -105,3 +105,8 @@ If you want to check on only one permission, you can pass that to the HasAnyRole
 	Jarvis::User()->hasRole('*.posts.create')
 ```
 <b> There is much more details within the <a href="http://www.sectheater.org/documentation">documentation</a>.</b>
+
+### Recently Added Features
+
+1- php artisan make:observer command is added
+
