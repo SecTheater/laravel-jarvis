@@ -4,7 +4,6 @@ namespace SecTheater\Jarvis\Providers;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
@@ -35,25 +34,11 @@ class JarvisServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(Router $router, Filesystem $filesystem)
+    public function boot(Filesystem $filesystem)
     {
-        if (config('jarvis.routes.register')) {
-            $this->mapRoutes();
-        }
-
         if (config('jarvis.observers.register')) {
             $this->registerObservers();
         }
-    }
-
-    protected function mapRoutes()
-    {
-        \Route::group([
-                'middleware' => 'web',
-                'namespace'  => '\\'.config('jarvis.controllers.namespace'),
-            ], function ($router) {
-                Jarvis::Routes();
-            });
     }
 
     /**
