@@ -4,8 +4,8 @@ namespace SecTheater\Jarvis;
 
 use App\User;
 use Hash;
-use Schema;
 use Illuminate\Support\Facades\Route;
+use Schema;
 use SecTheater\Jarvis\Activation\ActivationException;
 use SecTheater\Jarvis\Activation\ActivationRepository;
 use SecTheater\Jarvis\Comment\CommentRepository;
@@ -16,11 +16,12 @@ use SecTheater\Jarvis\Post\PostRepository;
 use SecTheater\Jarvis\Reminder\ReminderRepository;
 use SecTheater\Jarvis\Reply\ReplyRepository;
 use SecTheater\Jarvis\Role\RoleRepository;
+use SecTheater\Jarvis\Routes\RouteRegistrar;
 use SecTheater\Jarvis\Tag\TagRepository;
 use SecTheater\Jarvis\Traits\Roles\Roles;
 use SecTheater\Jarvis\User\EloquentUser;
 use SecTheater\Jarvis\User\UserRepository;
-use SecTheater\Jarvis\Routes\RouteRegistrar;
+
 class Jarvis
 {
     use Roles;
@@ -209,6 +210,7 @@ class Jarvis
     {
         return \UserRepository::find($id);
     }
+
     public static function routes($callback = null, array $options = [])
     {
         $callback = $callback ?: function ($router) {
@@ -216,7 +218,7 @@ class Jarvis
         };
 
         $defaultOptions = [
-            'namespace' => '\SecTheater\Jarvis\Http\Controllers'
+            'namespace' => '\SecTheater\Jarvis\Http\Controllers',
         ];
 
         $options = array_merge($defaultOptions, $options);
@@ -224,7 +226,7 @@ class Jarvis
         Route::group($options, function ($router) use ($callback) {
             $callback(new RouteRegistrar($router));
         });
-    }    
+    }
 
     // public function Routes()
     // {
