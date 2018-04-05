@@ -112,6 +112,7 @@ class JarvisServiceProvider extends ServiceProvider
         $this->commands(\SecTheater\Jarvis\Commands\AssignUserCommand::class);
         $this->commands(\SecTheater\Jarvis\Commands\CustomValidationCommand::class);
         $this->commands(\SecTheater\Jarvis\Commands\RequestsCommand::class);
+        $this->commands(\SecTheater\Jarvis\Commands\ObserversCommand::class);
         //  $this->commands(Commands\CreatePermissionCommand::class);
     }
 
