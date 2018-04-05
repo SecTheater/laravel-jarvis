@@ -66,7 +66,8 @@ class RequestsCommand extends Command
                 if (strpos($file_content, 'use SecTheater\\Jarvis\\Http\\Rules')) {
                     $namespace = '\\App\\Rules';
                     $file_content = str_replace('use SecTheater\\Jarvis\\Http\\Rules', 'use '.$namespace, $file_content);
-                    $this->filesystem->put($file->getRealPath(), $file_content);
+                    $this->filesystem->put($destination_namespace.DIRECTORY_SEPARATOR.$file->getFileName(), $file_content);
+
                 }
             }
         }
