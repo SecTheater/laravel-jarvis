@@ -1,11 +1,12 @@
 <?php
 
 namespace SecTheater\Jarvis\Commands;
-use Illuminate\Console\Command;
 
+use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 
-class ObserversCommand extends Command {
+class ObserversCommand extends Command
+{
     /**
      * The name and signature of the console command.
      *
@@ -30,7 +31,8 @@ class ObserversCommand extends Command {
      *
      * @return void
      */
-    public function __construct(Filesystem $filesystem) {
+    public function __construct(Filesystem $filesystem)
+    {
         parent::__construct();
         $this->filesystem = $filesystem;
     }
@@ -40,37 +42,37 @@ class ObserversCommand extends Command {
      *
      * @return mixed
      */
-    public function handle() {
+    public function handle()
+    {
         if (!$this->filesystem->isDirectory(app_path('Observers'))) {
             $this->filesystem->makeDirectory(app_path('Observers'), 0755, false, true);
             $this->info('Observers folder generated !');
         }
-        if (!$this->filesystem->exists(app_path('Observers'. DIRECTORY_SEPARATOR . $this->argument('name') . 'Observer.php'))) {
-            $hasModel    = trim($this->option('class')) != ''?trim($this->option('class')):null;
+        if (!$this->filesystem->exists(app_path('Observers'.DIRECTORY_SEPARATOR.$this->argument('name').'Observer.php'))) {
+            $hasModel = trim($this->option('class')) != '' ? trim($this->option('class')) : null;
             if ($hasModel) {
-                $model = "\\App\\". ucfirst($hasModel);
-                $model = new $model;
+                $model = '\\App\\'.ucfirst($hasModel);
+                $model = new $model();
                 $model = $model->getObservableEvents();
                 $loweredCaseModel = lcfirst($this->option('class'));
-            }else{
+            } else {
                 $model = $this->events;
                 $loweredCaseModel = null;
             }
             $fileContent = '';
             $if = function ($condition, $applied, $rejected) {
-                return $condition?$applied:$rejected;
+                return $condition ? $applied : $rejected;
             };
             foreach ($model as $event) {
                 if (in_array($event, $this->argument('except'))) {
                     continue;
                 }
-$fileContent .= <<<Event
+                $fileContent .= <<<Event
     public function {$event}({$if($hasModel, "$hasModel", '')} {$if($hasModel && isset($loweredCaseModel), "\$$loweredCaseModel" ?? null, '')}){
                     
     }
 
 Event;
-
             }
             $fileContent = <<<content
 <?php
@@ -83,9 +85,9 @@ class {$this->argument('name')}Observer {
 }
 ?>
 content;
-    $this->filesystem->put(app_path('Observers'. DIRECTORY_SEPARATOR . $this->argument('name') . 'Observer.php'), $fileContent);
-    $this->info('Observer Created !');
-        }else{
+            $this->filesystem->put(app_path('Observers'.DIRECTORY_SEPARATOR.$this->argument('name').'Observer.php'), $fileContent);
+            $this->info('Observer Created !');
+        } else {
             $this->info('Observer Already Exists ! , Wake up you need some caffeine :)');
         }
     }
