@@ -127,7 +127,7 @@ class Jarvis
         return $data;
     }
 
-   public function loginById($id, $remember = false)
+    public function loginById($id, $remember = false)
     {
         if ($id instanceof RestrictionInterface) {
             $user = $id;
