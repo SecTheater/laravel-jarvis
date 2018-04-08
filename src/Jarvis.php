@@ -149,7 +149,9 @@ class Jarvis
 
         return $user;
     }
-
+    public function check(){
+        return $this->user();
+    }
     public function login(array $data, $remember = false, $check = true)
     {
         if ($data = $this->filterLoginName($data)) {
