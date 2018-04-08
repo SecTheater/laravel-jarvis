@@ -76,6 +76,5 @@ return [
     'observers' => [
         'register' => true,
     ],
-  
 
 ];
