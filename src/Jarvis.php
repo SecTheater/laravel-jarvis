@@ -228,7 +228,6 @@ class Jarvis
         });
     }
 
-   
     public function approve($class)
     {
         if ('jarvis.'.config(strtolower(str_plural(str_replace('Eloquent', '', class_basename($class))))).'.approve') {
