@@ -95,7 +95,7 @@ class InstallCommand extends Command
                     if (strpos($routes_contents, 'Auth::routes();')) {
                         str_replace('Auth::routes();', '', $routes_contents);
                     }
-                    $routeServiceProviderContent = str_replace('parent::boot();', "parent::boot(); \n \t \t \\Jarvis::routes();", $routeServiceProviderContent);
+                    $routeServiceProviderContent = str_replace('parent::boot();', "\\Jarvis::routes(); \n \t \t parent::boot();", $routeServiceProviderContent);
                     $this->filesystem->put(app_path('Providers/RouteServiceProvider.php'), $routeServiceProviderContent);
                 }
             }
