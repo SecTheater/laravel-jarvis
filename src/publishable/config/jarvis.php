@@ -76,8 +76,6 @@ return [
     'observers' => [
         'register' => true,
     ],
-    'routes'    => [
-        'register' => true,
-    ],
+  
 
 ];
