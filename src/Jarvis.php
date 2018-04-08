@@ -150,29 +150,29 @@ class Jarvis
         return \Auth::loginUsingId($user->id ?? $id, $remember);
     }
 
-    public function login(array $data, $remember = false, $check = true):bool
+    public function login(array $data, $remember = false, $check = true)
     {
         if ($data = $this->filterLoginName($data)) {
             if (auth()->attempt($data, $remember)) {
                 if ($check && config('jarvis.activation.register')) {
                     if (auth()->user()->activation->count() && auth()->user()->activation->first()->completed === true) {
-                        return true;
+                        return $this->user();
                     }
 
                     return false;
                 }
 
-                return true;
+                return $this->user();
             }
         }
         if (auth()->check()) {
-            auth()->logout();
+            $this->logout();
         }
 
         return false;
     }
 
-    public function loginAndRemember(array $data, $check = true):bool
+    public function loginAndRemember(array $data, $check = true)
     {
         return $this->login($data, true, $check);
     }
@@ -187,7 +187,7 @@ class Jarvis
         return true;
     }
 
-    public function forceLogin($data, $remember):bool
+    public function forceLogin($data, $remember)
     {
         return $this->login($data, $remember, false);
     }
@@ -228,11 +228,7 @@ class Jarvis
         });
     }
 
-    // public function Routes()
-    // {
-    //     require_once __DIR__.'/Routes/web.php';
-    // }
-
+   
     public function approve($class)
     {
         if ('jarvis.'.config(strtolower(str_plural(str_replace('Eloquent', '', class_basename($class))))).'.approve') {
