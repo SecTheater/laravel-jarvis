@@ -78,7 +78,7 @@ class InstallCommand extends Command
                 }
             }
         }
-       
+
         $this->call('vendor:publish', ['--provider' => JarvisServiceProvider::class]);
         $os = (substr(php_uname('a'), 0, 3));
         $name = (strtoupper($os) !== 'WIN') ? posix_getpwuid(posix_geteuid())['name'] : null;
@@ -90,15 +90,15 @@ class InstallCommand extends Command
             $bar->setFormat('[<fg=magenta>%bar%</>]');
             if ($this->confirm('Will You use our default routes ?')) {
                 $routes_contents = $this->filesystem->get(base_path('routes/web.php'));
-                $routeServiceProviderContent =  $this->filesystem->get(app_path('Providers/RouteServiceProvider.php'));
+                $routeServiceProviderContent = $this->filesystem->get(app_path('Providers/RouteServiceProvider.php'));
                 if (false === strpos($routeServiceProviderContent, 'Jarvis::routes();')) {
                     if (strpos($routes_contents, 'Auth::routes();')) {
                         str_replace('Auth::routes();', '', $routes_contents);
                     }
-                    $routeServiceProviderContent = str_replace("parent::boot();","parent::boot(); \n \t \t \\Jarvis::routes();",$routeServiceProviderContent);
+                    $routeServiceProviderContent = str_replace('parent::boot();', "parent::boot(); \n \t \t \\Jarvis::routes();", $routeServiceProviderContent);
                     $this->filesystem->put(app_path('Providers/RouteServiceProvider.php'), $routeServiceProviderContent);
                 }
-            } 
+            }
             $bar->advance();
 
             if ($this->confirm('Does Your Application contain of comments system ?')) {
