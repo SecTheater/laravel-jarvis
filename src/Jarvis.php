@@ -150,40 +150,45 @@ class Jarvis
         return $user;
     }
 
-    public function check()
-    {
-        return $this->user();
-    }
-
     public function login(array $data, $remember = false, $check = true)
     {
         if ($data = $this->filterLoginName($data)) {
             if (auth()->attempt($data, $remember)) {
                 if ($check && config('jarvis.activation.register')) {
                     if (auth()->user()->activation->count() && auth()->user()->activation->first()->completed === true) {
-                        return $this->user();
+                        return auth()->user();
                     }
 
                     $this->logout();
-
                     throw new ActivationException('User is not activated yet.', 401);
                 }
 
-                return $this->user();
+                return auth()->user();
             }
         }
         if (auth()->check()) {
-            $this->logout();
+            auth()->logout();
         }
 
         return false;
     }
 
-    public function loginAndRemember(array $data, $check = true)
+    public function loginAndRemember(array $data, $check = true):bool
     {
         return $this->login($data, true, $check);
     }
-
+    public function hasRole($role){
+        return $this->user()->hasRole($role);
+    }
+    public function hasAnyRole($roles){
+        return $this->user()->hasAnyRole($roles);
+    }
+    public function hasAllRole($roles){
+        return $this->user()->hasAllRole($roles);
+    }
+    public function check(){
+        return $this->user();
+    }
     public function logout($everywhere = false):bool
     {
         auth()->logout();
@@ -194,7 +199,7 @@ class Jarvis
         return true;
     }
 
-    public function forceLogin($data, $remember)
+    public function forceLogin($data, $remember):bool
     {
         return $this->login($data, $remember, false);
     }
@@ -234,6 +239,11 @@ class Jarvis
             $callback(new RouteRegistrar($router));
         });
     }
+
+    // public function Routes()
+    // {
+    //     require_once __DIR__.'/Routes/web.php';
+    // }
 
     public function approve($class)
     {
