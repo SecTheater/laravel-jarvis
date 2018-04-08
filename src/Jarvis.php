@@ -127,7 +127,7 @@ class Jarvis
         return $data;
     }
 
-    public function loginById($id, $remember = false)
+   public function loginById($id, $remember = false)
     {
         if ($id instanceof RestrictionInterface) {
             $user = $id;
@@ -139,15 +139,15 @@ class Jarvis
         $user = \Auth::loginUsingId($user->id ?? $id, $remember);
         if (config('jarvis.activation.register')) {
             if ($user->activation()->exists() && $user->activation->first()->completed === true) {
-                return true;
+                return $this->user();
             } else {
-                \Auth::logout();
+                $this->logout();
 
                 throw new ActivationException('User is not activated yet.', 404);
             }
         }
 
-        return \Auth::loginUsingId($user->id ?? $id, $remember);
+        return $user;
     }
 
     public function login(array $data, $remember = false, $check = true)
