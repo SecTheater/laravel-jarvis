@@ -160,6 +160,7 @@ class Jarvis
                     }
 
                     $this->logout();
+
                     throw new ActivationException('User is not activated yet.', 401);
                 }
 
@@ -177,18 +178,27 @@ class Jarvis
     {
         return $this->login($data, true, $check);
     }
-    public function hasRole($role){
+
+    public function hasRole($role)
+    {
         return $this->user()->hasRole($role);
     }
-    public function hasAnyRole($roles){
+
+    public function hasAnyRole($roles)
+    {
         return $this->user()->hasAnyRole($roles);
     }
-    public function hasAllRole($roles){
+
+    public function hasAllRole($roles)
+    {
         return $this->user()->hasAllRole($roles);
     }
-    public function check(){
+
+    public function check()
+    {
         return $this->user();
     }
+
     public function logout($everywhere = false):bool
     {
         auth()->logout();
