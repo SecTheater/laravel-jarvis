@@ -160,8 +160,8 @@ class Jarvis
                     }
 
                     $this->logout();
-                    throw new ActivationException('User is not activated yet.', 401);
 
+                    throw new ActivationException('User is not activated yet.', 401);
                 }
 
                 return $this->user();
