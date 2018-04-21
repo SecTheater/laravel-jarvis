@@ -103,12 +103,11 @@ class AuthCommand extends Command
 
         $this->info('Adding Jarvis Authentication Routes');
 
-        $routes_contents = $this->filesystem->get(base_path('routes/web.php'));
-        if (false === strpos($routes_contents, 'Auth::routes()') && false === strpos($routes_contents, 'Jarvis::Routes()')) {
-            $this->filesystem->append(
-                base_path('routes/web.php'),
-                "\n\n Auth::routes();"
-            );
+        $content = $this->filesystem->get(app_path('Providers/RouteServiceProvider.php'));
+        if (false === strpos($content, 'jarvis()->routes()')) {
+            $content = str_replace('parent::boot();',"jarvis()->routes();\n\t\t\t\tparent::boot();",$content);
+            $this->filesystem->put(app_path('Providers/RouteServiceProvider.php'),$content);
+            $this->info('Jarvis has set its routes in RouteServiceProvider');
         } else {
             $this->info('Jarvis Seems that has set its routes earlier.');
         }
