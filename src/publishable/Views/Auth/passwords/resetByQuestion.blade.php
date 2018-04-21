@@ -3,11 +3,11 @@
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
         @if (session('stage 2'))
-        <form action=" {{ route('reset.security2')}}" method="POST">
+        <form action=" {{ route('reset-security-2')}}" method="POST">
             {{ csrf_field() }}
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="sec_question"> Security Question </label>
+                    <label for="sec_question"> Security- Question </label>
                     <select class="form-control input-lg" name="sec_question">
                         <option selected disabled>Pick Up A Question</option>
                         <option value="who_is_your_favorite_doctor_or_teacher">Who is your favorite Doctor Or Teacher ?</option>
@@ -19,7 +19,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="sec_answer"> Answer Your Security Question </label>
+                    <label for="sec_answer"> Answer Your Security- Question </label>
                         <input type="password" class="form-control input-lg" placeholder="The Answer goes here" name="sec_answer">
                 </div>
 
@@ -35,7 +35,7 @@
             </div>
         </form>
         @elseif(session('stage 3'))
-        <form action="{{ route('reset.security3')}}" method="POST">
+        <form action="{{ route('reset-security-3')}}" method="POST">
             {{csrf_field()}}
             <div class="col-md-6">
                 <div class="form-group">
@@ -62,7 +62,7 @@
             </div>
         </form>
         @else
-        <form action="{{ route('reset.security1') }}" method="POST">
+        <form action="{{ route('reset-security-1') }}" method="POST">
             {{csrf_field()}}
             <div class="col-md-6">
                 <div class="form-group">
