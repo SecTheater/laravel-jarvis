@@ -43,7 +43,7 @@ class RouteRegistrar
      */
     public function forAuthorization()
     {
-        $this->router->group(['middleware' => ['web', 'Jarvis'], 'roles' => '*.*.*'], function ($router) {
+        $this->router->group(['middleware' => 'web'], function ($router) {
             $router->post('/logout', [
                 'uses' => "Auth\LoginController@logout",
                 'as'   => 'logout',
