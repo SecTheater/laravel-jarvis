@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class RoleObserver
 {
-
     public function creating(Model $role)
     {
         $role->created_at = date('Y-m-d H:i:s');
