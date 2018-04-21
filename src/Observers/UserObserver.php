@@ -17,9 +17,6 @@ class UserObserver
         if (isset($user->location)) {
             $user->location = ucfirst(strtolower($user->location));
         }
-        if (isset($user->permissions)) {
-            $user->permissions = json_encode($user->permissions);
-        }
         if (isset($user->sec_answer)) {
             $user->sec_answer = bcrypt($user->sec_answer);
         }
@@ -36,15 +33,11 @@ class UserObserver
         if (isset($user->location)) {
             $user->location = ucfirst(strtolower($user->location));
         }
-        if (isset($user->permissions)) {
-            $user->permissions = json_encode($user->permissions);
-        }
     }
 
     public function retrieved(Model $user)
     {
         $user->username = ucfirst($user->username);
-        $user->permissions = json_decode($user->permissions, true);
     }
 
     public function deleting(Model $user)
