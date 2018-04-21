@@ -46,7 +46,7 @@ trait Roles
     public function hasRole($role)
     {
         $this->user = $this;
-        $roles = $this->user->roles()->first()->permissions ?? [];
+        $roles = $this->user->roles()->first()->permissions;
         $secondary_roles = $this->user->toArray()['permissions'] ?? [];
         if (array_key_exists($role, $roles) && $roles[$role] === true) {
             return true;
@@ -136,7 +136,10 @@ trait Roles
     public function getPermissions()
     {
         $permissions = $this->toArray()['permissions'] ?? $this->user->toArray()['permissions'];
-
         return is_string($permissions) ? json_decode($permissions, true) : $permissions;
+    }
+    public function inRole($slug)
+    {
+        return  $this->roles->first()->slug === $slug;
     }
 }
