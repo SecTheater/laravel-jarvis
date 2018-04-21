@@ -40,33 +40,11 @@ return [
         'register' => true,
     ],
     /*
-     * here you may specify the session name
-     */
-    'session_name' => 'sectheater_session',
-    /*
-     * here you may specify the cookie name
-     */
-    'cookie_name' => 'sectheater_cookie',
-    /*
-     * Here you can specify jarvis controller settings
-     */
-    'controllers' => [
-        // the default jarvis controllers namespace, feel free to change it.
-        'namespace' => 'SecTheater\\Jarvis\\Http\\Controllers',
-    ],
-    /*
      * Here is the models that Jarvis uses, Feel free to change them and don't hesitate to change, The package mainly depends on the repoistories, traits and Observers . Everything is separated from the model except for relationships, so you can change the model and keep using the same functionailities but you have to setup the  relationships within your model.
      */
     'models'     => [
         'namespace' => [
             'user'     => 'App\\',
-        ],
-    ],
-    'user'             => [
-        'check-if-online' => [
-            'check'          => true,
-            // expiration in minutes.
-            'expiration' => 5,
         ],
     ],
     /*
