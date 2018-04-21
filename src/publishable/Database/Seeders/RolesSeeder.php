@@ -1,7 +1,7 @@
 <?php
 
-use SecTheater\Jarvis\Role\EloquentRole as Role;
 use Illuminate\Database\Seeder;
+use SecTheater\Jarvis\Role\EloquentRole as Role;
 
 class RolesSeeder extends Seeder
 {
