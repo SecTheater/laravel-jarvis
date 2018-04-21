@@ -105,8 +105,8 @@ class AuthCommand extends Command
 
         $content = $this->filesystem->get(app_path('Providers/RouteServiceProvider.php'));
         if (false === strpos($content, 'jarvis()->routes()')) {
-            $content = str_replace('parent::boot();',"jarvis()->routes();\n\t\t\t\tparent::boot();",$content);
-            $this->filesystem->put(app_path('Providers/RouteServiceProvider.php'),$content);
+            $content = str_replace('parent::boot();', "jarvis()->routes();\n\t\t\t\tparent::boot();", $content);
+            $this->filesystem->put(app_path('Providers/RouteServiceProvider.php'), $content);
             $this->info('Jarvis has set its routes in RouteServiceProvider');
         } else {
             $this->info('Jarvis Seems that has set its routes earlier.');
