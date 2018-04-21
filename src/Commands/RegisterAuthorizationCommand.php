@@ -143,7 +143,7 @@ class RegisterAuthorizationCommand extends Command
             $content = str_replace('use NamespacedDummyModel;', 'use SecTheater\Jarvis\\'.$model.'\Eloquent'.$model.';', $originalContent);
         }
         if (in_array('approve', $permissions)) {
-            $content = str_replace('use HandlesAuthorization;', "use HandlesAuthorization;\n\tpublic function approve(User \$user, Eloquent".ucfirst($model)." \${$model}) {\n\t\treturn \$user->hasRole('approve-".lcfirst($model)."') || \$user->id == \$".lcfirst($model)."->user_id;\n\t}", $content);
+            $content = str_replace('use HandlesAuthorization;', "use HandlesAuthorization;\n\tpublic function approve(User \$user, Eloquent".ucfirst($model)." \$".lcfirst($model).") {\n\t\treturn \$user->hasRole('approve-".lcfirst($model)."') || \$user->id == \$".lcfirst($model)."->user_id;\n\t}", $content);
         }
         $content = str_replace('DummyClass', "{$model}Policy", $content);
         $content = str_replace('DummyModel', 'Eloquent'.$model, $content);
