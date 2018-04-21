@@ -41,11 +41,10 @@ class AuthCommand extends Command
     {
         $this->filesystem->copyDirectory('vendor/sectheater/laravel-jarvis/src/Http/Controllers/Auth', 'app/Http/Controllers/Auth');
         if (!\File::exists(resource_path('views/layouts/app.blade.php'))) {
-            if(!\File::exists(resource_path('views/layouts'))){
+            if (!\File::exists(resource_path('views/layouts'))) {
                 \File::makeDirectory(resource_path('views/layouts'));
             }
-            copy(base_path('vendor/laravel/framework/src/Illuminate/Auth/Console/stubs/make/views/layouts/app.stub'),resource_path('views/layouts/app.blade.php'));
-
+            copy(base_path('vendor/laravel/framework/src/Illuminate/Auth/Console/stubs/make/views/layouts/app.stub'), resource_path('views/layouts/app.blade.php'));
         }
         $this->filesystem->copyDirectory('vendor/sectheater/laravel-jarvis/src/publishable/Views/Auth', 'resources/views/auth');
         $bar = $this->output->createProgressBar(8);
@@ -112,8 +111,8 @@ class AuthCommand extends Command
 
         $content = $this->filesystem->get(app_path('Providers/RouteServiceProvider.php'));
         if (false === strpos($content, 'jarvis()->routes()')) {
-            $content = str_replace('parent::boot();',"jarvis()->routes();\n\t\t\t\tparent::boot();",$content);
-            $this->filesystem->put(app_path('Providers/RouteServiceProvider.php'),$content);
+            $content = str_replace('parent::boot();', "jarvis()->routes();\n\t\t\t\tparent::boot();", $content);
+            $this->filesystem->put(app_path('Providers/RouteServiceProvider.php'), $content);
             $this->info('Jarvis has set its routes in RouteServiceProvider');
         } else {
             $this->info('Jarvis Seems that has set its routes earlier.');
