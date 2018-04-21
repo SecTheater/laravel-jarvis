@@ -21,6 +21,7 @@ class SeederCommand extends Command
      */
     protected $description = 'Seed your database with Jarvis Seeders';
     private $filesystem;
+
     /**
      * Create a new command instance.
      *
@@ -40,17 +41,17 @@ class SeederCommand extends Command
     public function handle()
     {
         $content = $this->filesystem->get(database_path('seeds/DatabaseSeeder.php'));
-        if(!str_contains($content, 'RolesSeeder::class')){
-            $needle ="    public function run()
-    {";
-            $content = (str_replace($needle, $needle . "\n\t\t\t\t\$this->call(\RolesSeeder::class); \n",$content));
-            $this->filesystem->put(database_path('seeds/DatabaseSeeder.php'),$content);
+        if (!str_contains($content, 'RolesSeeder::class')) {
+            $needle = '    public function run()
+    {';
+            $content = (str_replace($needle, $needle."\n\t\t\t\t\$this->call(\RolesSeeder::class); \n", $content));
+            $this->filesystem->put(database_path('seeds/DatabaseSeeder.php'), $content);
             $this->info('DatabaseSeeder is updated with our Roles Seeder. Database is seeded successfully !');
-        }else{
+        } else {
             $this->info('It Seems that the seeder exist in your DatabseSeeder');
         }
         $this->call('db:seed');
-        if($this->confirm('Do You wish to convert Permissions into Gates & Policies ? ')){
+        if ($this->confirm('Do You wish to convert Permissions into Gates & Policies ? ')) {
             $this->call('sectheater:register-authorization');
         }
     }
