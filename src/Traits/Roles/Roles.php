@@ -136,8 +136,10 @@ trait Roles
     public function getPermissions()
     {
         $permissions = $this->toArray()['permissions'] ?? $this->user->toArray()['permissions'];
+
         return is_string($permissions) ? json_decode($permissions, true) : $permissions;
     }
+
     public function inRole($slug)
     {
         return  $this->roles->first()->slug === $slug;
