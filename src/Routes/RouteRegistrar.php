@@ -61,7 +61,7 @@ class RouteRegistrar
 
     public function forGuests()
     {
-        $this->router->group(['middleware' => ['guest','web'], 'namespace' => 'Auth'], function ($router) {
+        $this->router->group(['middleware' => ['guest', 'web'], 'namespace' => 'Auth'], function ($router) {
             $router->get('/login', [
                 'uses' => 'LoginController@getLogin',
                  'as'  => 'login',
