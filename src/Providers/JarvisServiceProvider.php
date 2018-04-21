@@ -77,7 +77,7 @@ class JarvisServiceProvider extends ServiceProvider
                 "{$publishablePath}/config/jarvis.php"=> config_path('jarvis.php'),
             ],
             'Markdown'                         => [
-                "{$publishablePath}/Views/Emails/"=> resource_path('emails'),
+                "{$publishablePath}/Views/Emails/"=> resource_path('views/emails'),
             ],
             'Emails'                  => [
                 "{$publishablePath}/Mail"=> app_path('Mail'),
