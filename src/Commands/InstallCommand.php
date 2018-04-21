@@ -54,11 +54,6 @@ class InstallCommand extends Command
     public function handle()
     {
         $middleware_contents = $this->filesystem->get(base_path('app/Http/Kernel.php'));
-        if (false === strpos($middleware_contents, '\\SecTheater\\Jarvis\\Http\\Middleware\\JarvisMiddleware::class')) {
-            $contents = str_replace('protected $routeMiddleware = [', 'protected $routeMiddleware = [
-		\'Jarvis\' => \\SecTheater\\Jarvis\\Http\\Middleware\\JarvisMiddleware::class,', $middleware_contents);
-            $this->filesystem->put(base_path('app/Http/Kernel.php'), $contents);
-        }
         foreach ($this->aliases as $name => $alias) {
             if ($name == 'Jarvis' || $name == 'roles' || $name == 'users' || $name == 'reminders') {
                 $app_content = $this->filesystem->get(base_path('config/app.php'));
