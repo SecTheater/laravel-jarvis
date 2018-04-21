@@ -144,6 +144,6 @@ class ReminderRepository extends Repository implements ReminderInterface
 
     public function removeExpired()
     {
-        return (bool) $this->model->where(['completed' => false, ['created_at', '>=', \Carbon\Carbon::now()->subDays(config('jarvis.activation.expiration'))->format('Y-m-d H:i:s')]])->delete();
+        return (bool) $this->model->where(['completed' => false, ['created_at', '>=', \Carbon\Carbon::now()->subDays(config('jarvis.reminder.expiration'))->format('Y-m-d H:i:s')]])->delete();
     }
 }
