@@ -1,6 +1,6 @@
 <?php
 
-use App\Role;
+use SecTheater\Jarvis\Role\EloquentRole as Role;
 use Illuminate\Database\Seeder;
 
 class RolesSeeder extends Seeder
