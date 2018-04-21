@@ -16,7 +16,7 @@
                     <input type="submit" class="btn btn-primary btn-lg " value="Send Code">
                     <input type="reset" class="btn btn-outline btn-lg " value="Reset">
                 </div>
-                <small><p><a href="{{ route('reset.security') }}" >Reset By Security Question ? </a></p></small>
+                <small><p><a href="{{ route('reset-security') }}" >Reset By Security Question ? </a></p></small>
             </div>
         </form>
     </div>
