@@ -9,6 +9,10 @@ class EloquentRole extends Model
 {
     protected $table = 'roles';
     protected $guarded = [];
+    protected $casts = [
+        'permissions' => 'array'
+    ];
+
 
     public function users()
     {
