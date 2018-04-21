@@ -250,11 +250,6 @@ class Jarvis
         });
     }
 
-    // public function Routes()
-    // {
-    //     require_once __DIR__.'/Routes/web.php';
-    // }
-
     public function approve($class)
     {
         if ('jarvis.'.config(strtolower(str_plural(str_replace('Eloquent', '', class_basename($class))))).'.approve') {
