@@ -23,9 +23,10 @@ class EloquentUser extends Authenticatable implements RestrictionInterface
         'password', 'remember_token',
     ];
     public static $loginNames = ['string' => 'username', 'email' => 'email'];
-    public  $casts = [
-        'permissions' => 'array'
+    public $casts = [
+        'permissions' => 'array',
     ];
+
     public function getRouteKeyName()
     {
         return 'username';
