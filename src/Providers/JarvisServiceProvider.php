@@ -53,6 +53,7 @@ class JarvisServiceProvider extends ServiceProvider
         }
         $this->registerHelpers();
         $this->registerBlades();
+        if(config('jarvis.models.package'))
         $this->registerBindings();
         Schema::defaultStringLength(191);
     }
@@ -225,15 +226,16 @@ class JarvisServiceProvider extends ServiceProvider
 
     public function __get($key)
     {
-        if (count(config('jarvis.models.user'))) {
-            foreach (config('jarvis.models.user') as $key => $value) {
+        if(config('jarvis')){
+            if (count(config('jarvis.models.user'))) {
+                foreach (config('jarvis.models.user') as $key => $value) {
+                    $this->models[$key] = $value;
+                }
+            }
+            foreach (config('jarvis.models.package') as $key => $value) {
                 $this->models[$key] = $value;
             }
         }
-        foreach (config('jarvis.models.package') as $key => $value) {
-            $this->models[$key] = $value;
-        }
-
         return $this->models ?? null;
     }
 }
