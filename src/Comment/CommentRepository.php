@@ -58,20 +58,4 @@ class CommentRepository extends Repository implements CommentInterface {
 
 		return $this->model->whereApproved(false)->get();
 	}
-
-	public function recentlyApproved() {
-		if (!config('jarvis.posts.approve')) {
-			throw new ConfigException('Approval Is not enabled for posts.');
-		}
-
-		return $this->model->whereApproved(true)->get()->sortByDesc('approved_at');
-	}
-
-	public function recentComments(array $condition = null) {
-		if (isset($condition)) {
-			return $this->model->where($condition)->get()->sortByDesc('created_at');
-		}
-
-		return $this->all()->sortByDesc('created_at');
-	}
 }

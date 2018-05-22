@@ -21,10 +21,4 @@ interface ActivationInterface
     public function regenerateToken(RestrictionInterface $user, bool $create = false);
 
     public function removeExpired();
-
-    public function getActivationsHave($relation, $operator = '=', $condition = null);
-
-    public function getActivationsDoesntHave($relation, array $condition = null);
-
-    public function getActivationsWhereHave($relation, array $condition);
 }

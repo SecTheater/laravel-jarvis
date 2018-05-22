@@ -20,9 +20,4 @@ interface ReminderInterface
 
     public function regenerateToken(RestrictionInterface $user, bool $create = false);
 
-    public function getRemindersHave($relation, $operator = '=', $condition = null);
-
-    public function getRemindersDoesntHave($relation, array $condition = null);
-
-    public function getRemindersWhereHave($relation, array $condition);
 }

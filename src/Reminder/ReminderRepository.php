@@ -13,43 +13,6 @@ class ReminderRepository extends Repository implements ReminderInterface
     {
         $this->model = $model;
     }
-
-    public function getRemindersHave($relation, $operator = '=', $condition = null)
-    {
-        if (is_array($condition) || is_array($operator)) {
-            list($condition) = [$condition ?? $operator];
-
-            return $this->getRemindersWhereHave($relation, $condition);
-        }
-        if (func_num_args() === 2) {
-            list($relation, $condition) = func_get_args();
-
-            return $this->model->has($relation, $operator, $condition)->get();
-        } elseif (func_num_args() === 3) {
-            return $this->model->has($relation, $operator, $condition)->get();
-        }
-
-        return $this->model->has($relation)->get();
-    }
-
-    public function getRemindersDoesntHave($relation, array $condition = null)
-    {
-        if (isset($condition)) {
-            return $this->model->whereDoesntHave($relation, function ($query) use ($condition) {
-                return $query->where($condition);
-            })->get();
-        }
-
-        return $this->model->doesntHave($relation)->get();
-    }
-
-    public function getRemindersWhereHave($relation, array $condition)
-    {
-        return $this->model->whereHas($relation, function ($query) use ($condition) {
-            $query->where($condition);
-        })->get();
-    }
-
     public function tokenExists(RestrictionInterface $user, bool $create = false)
     {
         if ($create) {

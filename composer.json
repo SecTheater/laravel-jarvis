@@ -12,12 +12,7 @@
     ],
     "require": {
         "php": ">=7.0.0",
-        "laravel/framework": "5.*.*"
-    
     },
-    "require-dev": {
-          "laravel/framework": "5.*.*"
-     },
     "autoload": {
          "psr-4": {
             "SecTheater\\Jarvis\\" : "src/"
@@ -31,8 +26,7 @@
             ],
             "aliases": {
                 "Jarvis": "SecTheater\\Jarvis\\Facades\\Jarvis"
-            }   
-        
+            }
         }
     }
 }

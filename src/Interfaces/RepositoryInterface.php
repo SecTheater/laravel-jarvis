@@ -21,7 +21,10 @@ interface RepositoryInterface {
 
 	public function exists($condition, $operator = '=', $value = null);
 	public function getEloquentHave($relation, $operator = '=', $condition = null);
+
 	public function getEloquentWhereHave($relation, array $condition);
+
 	public function getEloquentDoesntHave($relation, array $condition = null);
+
 	public function __call($method, $arguments);
 }

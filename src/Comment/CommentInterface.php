@@ -12,9 +12,4 @@ interface CommentInterface {
 	public function userComments(RestrictionInterface $user, array $condition = null);
 
 	public function getUnapproved($relation = null);
-
-	public function recentlyApproved();
-
-	public function recentComments(array $condition = null);
-
 }

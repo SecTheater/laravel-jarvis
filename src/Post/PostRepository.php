@@ -56,21 +56,6 @@ class PostRepository extends Repository implements PostRepositoryInterface {
 		return $this->model->whereApproved(false)->get();
 	}
 
-	public function recentlyApproved() {
-		if (!config('jarvis.posts.approve')) {
-			throw new ConfigException('Approval Is not enabled for posts.');
-		}
-
-		return $this->model->whereApproved(true)->get()->sortByDesc('approved_at');
-	}
-
-	public function recentPosts(array $condition = null) {
-		if ($condition) {
-			return $this->model->where($condition)->get()->sortByDesc('created_at');
-		}
-
-		return $this->all()->sortByDesc('created_at');
-	}
 
 	public function archives() {
 		return $this->model
@@ -78,15 +63,5 @@ class PostRepository extends Repository implements PostRepositoryInterface {
 			->groupBy('year', 'month')
 			->orderByRaw('min(created_at) desc')
 			->get();
-	}
-
-	public function getPostsDoesntHave($relation, array $condition = null) {
-		if ($condition) {
-			return $this->model->whereDoesntHave($relation, function ($query) use ($condition) {
-				return $query->where($condition);
-			})->get();
-		}
-
-		return $this->model->doesntHave($relation)->get();
 	}
 }

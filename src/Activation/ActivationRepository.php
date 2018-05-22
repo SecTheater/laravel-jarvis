@@ -14,42 +14,6 @@ class ActivationRepository extends Repository implements ActivationInterface
         $this->model = $model;
     }
 
-    public function getActivationsHave($relation, $operator = '=', $condition = null)
-    {
-        if (is_array($condition) || is_array($operator)) {
-            list($condition) = [$condition ?? $operator];
-
-            return $this->getActivationsWhereHave($relation, $condition);
-        }
-        if (func_num_args() === 2) {
-            list($relation, $condition) = func_get_args();
-
-            return $this->model->has($relation, $operator, $condition)->get();
-        } elseif (func_num_args() === 3) {
-            return $this->model->has($relation, $operator, $condition)->get();
-        }
-
-        return $this->model->has($relation)->get();
-    }
-
-    public function getActivationsDoesntHave($relation, array $condition = null)
-    {
-        if ($condition) {
-            return $this->model->whereDoesntHave($relation, function ($query) use ($condition) {
-                return $query->where($condition);
-            })->get();
-        }
-
-        return $this->model->doesntHave($relation)->get();
-    }
-
-    public function getActivationsWhereHave($relation, array $condition)
-    {
-        return $this->model->whereHas($relation, function ($query) use ($condition) {
-            $query->where($condition);
-        })->get();
-    }
-
     public function tokenExists(RestrictionInterface $user, bool $create = false)
     {
         if ($create) {
@@ -144,10 +108,5 @@ class ActivationRepository extends Repository implements ActivationInterface
     public function removeExpired()
     {
         return (bool) $this->model->where(['completed' => false, ['created_at', '>=', \Carbon\Carbon::now()->subDays(config('jarvis.activation.expiration'))->format('Y-m-d H:i:s')]])->delete();
-    }
-
-    public function __call($method, $arguments)
-    {
-        return $this->model->$method(...$arguments);
     }
 }
