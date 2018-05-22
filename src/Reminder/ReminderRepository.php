@@ -13,6 +13,7 @@ class ReminderRepository extends Repository implements ReminderInterface
     {
         $this->model = $model;
     }
+
     public function tokenExists(RestrictionInterface $user, bool $create = false)
     {
         if ($create) {

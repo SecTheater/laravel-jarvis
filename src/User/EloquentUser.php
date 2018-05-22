@@ -12,50 +12,60 @@ use SecTheater\Jarvis\Interfaces\RestrictionInterface;
 use SecTheater\Jarvis\Model\EloquentModel;
 use SecTheater\Jarvis\Traits\Roles\Roles;
 
-class EloquentUser extends EloquentModel implements RestrictionInterface, AuthenticatableContract, AuthorizableContract, CanResetPasswordContract {
-	use Roles, Authenticatable, Authorizable, CanResetPassword;
-	protected $table = 'users';
-	protected $hidden = [
-		'password', 'remember_token',
-	];
-	public static $loginNames = ['string' => 'username', 'email' => 'email'];
-	public $casts = [
-		'permissions' => 'array',
-	];
+class EloquentUser extends EloquentModel implements RestrictionInterface, AuthenticatableContract, AuthorizableContract, CanResetPasswordContract
+{
+    use Roles, Authenticatable, Authorizable, CanResetPassword;
+    protected $table = 'users';
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+    public static $loginNames = ['string' => 'username', 'email' => 'email'];
+    public $casts = [
+        'permissions' => 'array',
+    ];
 
-	public function getRouteKeyName() {
-		return 'username';
-	}
+    public function getRouteKeyName()
+    {
+        return 'username';
+    }
 
-	public function comments() {
-		return $this->hasMany($this->commentModel, 'user_id');
-	}
+    public function comments()
+    {
+        return $this->hasMany($this->commentModel, 'user_id');
+    }
 
-	public function replies() {
-		return $this->hasMany($this->replyModel, 'user_id');
-	}
+    public function replies()
+    {
+        return $this->hasMany($this->replyModel, 'user_id');
+    }
 
-	public function tags() {
-		return $this->hasMany($this->tagModel, 'user_id');
-	}
+    public function tags()
+    {
+        return $this->hasMany($this->tagModel, 'user_id');
+    }
 
-	public function likes() {
-		return $this->hasMany($this->likeModel, 'user_id');
-	}
+    public function likes()
+    {
+        return $this->hasMany($this->likeModel, 'user_id');
+    }
 
-	public function posts() {
-		return $this->hasMany($this->postModel, 'user_id');
-	}
+    public function posts()
+    {
+        return $this->hasMany($this->postModel, 'user_id');
+    }
 
-	public function activation() {
-		return $this->hasMany($this->activationModel, 'user_id', 'id');
-	}
+    public function activation()
+    {
+        return $this->hasMany($this->activationModel, 'user_id', 'id');
+    }
 
-	public function reminder() {
-		return $this->hasMany($this->reminderModel, 'user_id', 'id');
-	}
+    public function reminder()
+    {
+        return $this->hasMany($this->reminderModel, 'user_id', 'id');
+    }
 
-	public function roles() {
-		return $this->belongsToMany($this->roleModel, 'role_users', 'user_id', 'role_id');
-	}
+    public function roles()
+    {
+        return $this->belongsToMany($this->roleModel, 'role_users', 'user_id', 'role_id');
+    }
 }

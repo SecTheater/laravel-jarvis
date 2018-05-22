@@ -19,5 +19,4 @@ interface ReminderInterface
     public function generateToken(RestrictionInterface $user);
 
     public function regenerateToken(RestrictionInterface $user, bool $create = false);
-
 }
