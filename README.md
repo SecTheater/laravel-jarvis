@@ -125,6 +125,13 @@ If you want to check whether the user has any of the post permissions or whateve
 - Jarvis Middleware is removed.
 
 - Policies & Gates are set automatically depending on the database roles.
+- Existing relationships Dynamically set depending on existing models either through properties or config file.
+- Observers watch models that has been bounded to the config file dynamically.
+- Like Relationship is changed to many-to-many polymorphic.
+- package_version function is added ( checks the version of any package passed to it )
+- model_exists function is now checking for the user models
+- jarvis_model_exists function only checks for Jarvis's models only.
+- recent method is added to all of Repositories ( you can fetch with it recent stuff under condition and,or approved stuff )
 
 #### Extra Commands are added such as :
  - sectheater:register-authorization // registers the policies and gates and publishing them , depending on your database   roles.
