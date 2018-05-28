@@ -6,9 +6,6 @@ use SecTheater\Jarvis\Exceptions\InsufficientPermissionsException;
 
 trait Roles
 {
-    protected $permissions;
-    protected $user;
-
     public function hasAllRole($roles)
     {
         if (is_array($roles)) {
@@ -45,9 +42,8 @@ trait Roles
 
     public function hasRole($role)
     {
-        $this->user = $this;
-        $roles = $this->user->roles()->first()->permissions;
-        $secondary_roles = $this->user->toArray()['permissions'] ?? [];
+        $roles = $this->roles()->first()->permissions;
+        $secondary_roles = $this->toArray()['permissions'] ?? [];
         if (array_key_exists($role, $roles) && $roles[$role] === true) {
             return true;
         }
@@ -78,12 +74,12 @@ trait Roles
                 }
             }
 
-            return $this->setPermissions($this, $permissions);
+            return $this->setPermissions($permissions);
         } elseif (is_string($permission)) {
             if (!array_key_exists($permission, $permissions)) {
                 $permissions = array_merge($permissions, [$permission => $value]);
 
-                return $this->setPermissions($this, $permissions);
+                return $this->setPermissions($permissions);
             }
         }
 
@@ -96,11 +92,9 @@ trait Roles
         if (array_key_exists($permission, $permissions)) {
             $permissions[$permission] = $value;
 
-            return $this->setPermissions($this->user ?? $this, $permissions);
+            return (bool) $this->setPermissions($permissions);
         } elseif ($create) {
-            if ($this->addPermission($permission, $value)) {
-                return true;
-            }
+            return (bool) $this->addPermission($permission, $value);
         }
 
         return false;
@@ -125,19 +119,17 @@ trait Roles
             $permissions = null;
         }
 
-        return $this->setPermissions($this, $permissions);
+        return (bool) $this->setPermissions($permissions);
     }
 
-    public function setPermissions($user, $permissions)
+    public function setPermissions($permissions)
     {
-        return $user->update(['permissions' => $permissions]);
+        return $this->update(['permissions' => $permissions]);
     }
 
     public function getPermissions()
     {
-        $permissions = $this->toArray()['permissions'] ?? $this->user->toArray()['permissions'];
-
-        return is_string($permissions) ? json_decode($permissions, true) : $permissions;
+        return $this->permissions;
     }
 
     public function inRole($slug)
