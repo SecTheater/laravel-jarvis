@@ -14,7 +14,7 @@ class EloquentModel extends Model
             $model = str_replace('Model', '', $name);
             if (model_exists($model)) {
                 $key = 'jarvis.models.user.'.$model;
-                $value =  config('jarvis.models.namespace').ucfirst($model);
+                $value = config('jarvis.models.namespace').ucfirst($model);
                 config([$key => $value]);
                 $this->{$name} = $value;
             } elseif (jarvis_model_exists($model)) {
