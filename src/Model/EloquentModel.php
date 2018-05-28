@@ -21,7 +21,7 @@ class EloquentModel extends Model
                 $this->{$name} = config('jarvis.models.package.'.$model);
             }
 
-            return $this->{$name};
+            return $this->{$name} ?? null;
         }
 
         return parent::__get($name);
