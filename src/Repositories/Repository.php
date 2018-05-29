@@ -55,8 +55,9 @@ abstract class Repository implements RepositoryInterface
 
     public function update($identifier, array $attributes)
     {
-        if(!is_object($identifier))
+        if (!is_object($identifier)) {
             $identifier = $this->model->find($identifier);
+        }
         if (isset($attributes['user_id']) && is_object($attributes['user_id'])) {
             $attributes['user_id'] = $attributes['user_id']->id;
         }
@@ -81,8 +82,9 @@ abstract class Repository implements RepositoryInterface
 
     public function delete($identifier)
     {
-        if($identifier instanceof Model)
-        return (bool) $identifier->delete();
+        if ($identifier instanceof Model) {
+            return (bool) $identifier->delete();
+        }
 
         return (bool) $this->model->find($identifier)->delete();
     }
