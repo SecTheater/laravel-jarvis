@@ -14,9 +14,9 @@ interface RepositoryInterface
 
     public function create(array $attributes);
 
-    public function update(Model $model, array $attributes);
+    public function update($identifier, array $attributes);
 
-    public function delete(Model $model);
+    public function delete($identifier);
 
     public function ordered($attribute, $order = 'desc');
 
