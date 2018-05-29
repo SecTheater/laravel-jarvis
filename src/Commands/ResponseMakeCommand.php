@@ -40,18 +40,20 @@ class ResponseMakeCommand extends Command
     {
         $name = $this->argument('name');
 
-        if (!is_dir(app_path('/Responses')))
+        if (!is_dir(app_path('/Responses'))) {
             File::makeDirectory(app_path('/Responses'));
+        }
 
-        if (file_exists(app_path('/Responses/' . $name . '.php')))
-            return $this->error("Response already exists");
+        if (file_exists(app_path('/Responses/'.$name.'.php'))) {
+            return $this->error('Response already exists');
+        }
 
         $defaultResponseContent = File::get(package_path('Commands/stubs/DummyResponse.stub'));
         $runtimeResponseContent = str_replace('DummyResponse', $name, $defaultResponseContent);
         File::put(package_path('Commands/stubs/DummyResponse.stub'), $runtimeResponseContent);
-        File::copy(package_path('Commands/stubs/DummyResponse.stub'), app_path('/Responses/' . $name . '.php'));
+        File::copy(package_path('Commands/stubs/DummyResponse.stub'), app_path('/Responses/'.$name.'.php'));
         File::put(package_path('Commands/stubs/DummyResponse.stub'), $defaultResponseContent);
 
-        $this->info("Well done! response created successfully");
+        $this->info('Well done! response created successfully');
     }
 }
