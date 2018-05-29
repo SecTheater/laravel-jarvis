@@ -53,8 +53,10 @@ abstract class Repository implements RepositoryInterface
         return $this->model->create($attributes);
     }
 
-    public function update(Model $repository, array $attributes)
+    public function update($identifier, array $attributes)
     {
+        if(!is_object($identifier))
+            $identifier = $this->model->find($identifier);
         if (isset($attributes['user_id']) && is_object($attributes['user_id'])) {
             $attributes['user_id'] = $attributes['user_id']->id;
         }
@@ -74,12 +76,15 @@ abstract class Repository implements RepositoryInterface
             $attributes['tag_id'] = $attributes['tag_id']->id;
         }
 
-        return ($repository->update($attributes)) ? $repository : false;
+        return ($identifier->update($attributes)) ? $identifier : false;
     }
 
-    public function delete(Model $repository)
+    public function delete($identifier)
     {
-        return (bool) $repository->delete();
+        if($identifier instanceof Model)
+        return (bool) $identifier->delete();
+
+        return (bool) $this->model->find($identifier)->delete();
     }
 
     public function exists($attribute, $operator = '=', $value = null)
