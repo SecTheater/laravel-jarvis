@@ -106,7 +106,7 @@ class SectheaterJarvisTables extends Migration
             $table->integer('likable_id')->unsigned();
             $table->timestamps();
         });
-        Schema::table('likes',function(Blueprint $table){
+        Schema::table('likes', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
 
@@ -114,7 +114,7 @@ class SectheaterJarvisTables extends Migration
             $table->increments('id');
             $table->string('slug')->unique();
             $table->string('name');
-            $table->text('permissions')->nullable("{}");
+            $table->text('permissions')->nullable('{}');
             $table->timestamps();
         });
         Schema::create('role_users', function (Blueprint $table) {
