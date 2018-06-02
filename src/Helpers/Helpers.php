@@ -1,5 +1,4 @@
 <?php
-
 if (!function_exists('package_path')) {
     function package_path($path = null)
     {
@@ -9,7 +8,7 @@ if (!function_exists('package_path')) {
 if (!function_exists('user')) {
     function user($guard = null)
     {
-        return auth()->guard($guard)->check() ? auth()->user() : null;
+        return auth()->guard($guard)->check() ? auth()->guard($guard)->user() : null;
     }
 }
 if (!function_exists('getUser')) {
@@ -35,7 +34,7 @@ if (!function_exists('package_version')) {
         $file = base_path('composer.lock');
         $packages = json_decode(file_get_contents($file), true)['packages'];
         foreach ($packages as $package) {
-            if ($package['name'] == $packageName) {
+            if (explode('/',$package['name'])[1] == $packageName) {
                 return $package['version'];
             }
         }
@@ -51,7 +50,7 @@ if (!function_exists('repository')) {
         $model = model($name);
         if (!count(config('jarvis.repositories.user')) || !in_array($name, config('jarvis.repositories.user'))) {
             if (!array_key_exists($name, $models)) {
-                throw new HelperException('Call To Undefined Repository');
+                throw new \SecTheater\Jarvis\Helpers\HelperException("Repository $name Does not exist", 500);
             }
             $repository = '\SecTheater\Jarvis\\'.ucfirst($name).'\\'.ucfirst($name).'Repository';
         } else {
@@ -74,23 +73,24 @@ if (!function_exists('jarvis_model_exists')) {
 if (!function_exists('model')) {
     function model(string $name, array $attributes = [])
     {
-        if (File::exists(str_replace('\\', DIRECTORY_SEPARATOR, base_path(lcfirst(ltrim(config('jarvis.models.namespace'), '\\'))).ucfirst($name).'.php'))) {
+        $name = ucfirst(str_replace('Eloquent','',$name));
+        if (File::exists(str_replace('\\', DIRECTORY_SEPARATOR, base_path(lcfirst(ltrim(config('jarvis.models.namespace'), '\\'))).$name.'.php'))) {
             if (array_key_exists(lcfirst($name), config('jarvis.models.user'))) {
                 $model = config('jarvis.models.user')[lcfirst($name)];
             } elseif (model_exists($name)) {
-                $model = config('jarvis.models.namespace').ucfirst($name);
+                $model = config('jarvis.models.namespace').$name;
             } else {
                 $model = config('jarvis.models.package')[lcfirst($name)];
             }
 
             return new $model($attributes);
-        } elseif (File::exists(__DIR__.'/../'.str_replace('Eloquent', '', $name).'/'.ucfirst($name).'.php')) {
-            $model = '\\SecTheater\\Jarvis\\'.ucfirst(str_replace('Eloquent', '', $name)).'\\'.ucfirst($name);
+        } elseif (File::exists(__DIR__.'/../'.$name.'/'.'Eloquent'.$name.'.php')) {
+            $model = '\\SecTheater\\Jarvis\\'.$name.'\\'.'Eloquent'.$name;
 
             return new $model($attributes);
         }
 
-        throw new HelperException("Model $name Does not exist", 500);
+       throw new \SecTheater\Jarvis\Helpers\HelperException("Model $name Does not exist", 500);
     }
 }
 if (!function_exists('Jarvis')) {
