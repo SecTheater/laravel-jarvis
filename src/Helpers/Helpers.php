@@ -1,4 +1,5 @@
 <?php
+
 if (!function_exists('package_path')) {
     function package_path($path = null)
     {
@@ -34,7 +35,7 @@ if (!function_exists('package_version')) {
         $file = base_path('composer.lock');
         $packages = json_decode(file_get_contents($file), true)['packages'];
         foreach ($packages as $package) {
-            if (explode('/',$package['name'])[1] == $packageName) {
+            if (explode('/', $package['name'])[1] == $packageName) {
                 return $package['version'];
             }
         }
@@ -73,7 +74,7 @@ if (!function_exists('jarvis_model_exists')) {
 if (!function_exists('model')) {
     function model(string $name, array $attributes = [])
     {
-        $name = ucfirst(str_replace('Eloquent','',$name));
+        $name = ucfirst(str_replace('Eloquent', '', $name));
         if (File::exists(str_replace('\\', DIRECTORY_SEPARATOR, base_path(lcfirst(ltrim(config('jarvis.models.namespace'), '\\'))).$name.'.php'))) {
             if (array_key_exists(lcfirst($name), config('jarvis.models.user'))) {
                 $model = config('jarvis.models.user')[lcfirst($name)];
@@ -90,7 +91,7 @@ if (!function_exists('model')) {
             return new $model($attributes);
         }
 
-       throw new \SecTheater\Jarvis\Helpers\HelperException("Model $name Does not exist", 500);
+        throw new \SecTheater\Jarvis\Helpers\HelperException("Model $name Does not exist", 500);
     }
 }
 if (!function_exists('Jarvis')) {
