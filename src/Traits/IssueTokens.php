@@ -1,5 +1,7 @@
 <?php
+
 namespace SecTheater\Jarvis\Traits;
+
 use SecTheater\Jarvis\Interfaces\RestrictionInterface;
 
 /**
@@ -7,13 +9,13 @@ use SecTheater\Jarvis\Interfaces\RestrictionInterface;
  */
 trait IssueTokens
 {
-
     public function hasToken(RestrictionInterface $user)
     {
         if ($user->{$this->process}->count() && $user->{$this->process}->first()->token) {
             return $user->{$this->process}->first();
         }
     }
+
     public function hasOrCreateToken(RestrictionInterface $user, bool $create = false)
     {
         if ($create) {
@@ -21,6 +23,7 @@ trait IssueTokens
                 return $this->generateToken($user);
             }
         }
+
         return $this->hasToken($user) ?? false;
     }
 
@@ -37,12 +40,13 @@ trait IssueTokens
     {
         ${$this->process} = $this->hasOrCreateToken($user);
         if (!${$this->process}) {
-            $exception = "SecTheater\Jarvis\\" . ucfirst($this->process) . '\\' . ucfirst($this->process) . 'Exception';
+            $exception = "SecTheater\Jarvis\\".ucfirst($this->process).'\\'.ucfirst($this->process).'Exception';
+
             throw new $exception('User Does not have token');
         }
         ${$this->process}->token = null;
         ${$this->process}->completed_at = date('Y-m-d H:i:s');
-        ${$this->process}->completed  = true;
+        ${$this->process}->completed = true;
         ${$this->process}->save();
         if (${$this->process} && ${$this->process}->token !== null && ${$this->process}->token === $token) {
         } elseif (${$this->process} && ${$this->process}->completed === true) {
