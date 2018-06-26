@@ -13,7 +13,7 @@ class PostRepository extends Repository implements PostRepositoryInterface
     {
         $this->model = $model;
     }
-
+    
     public function getPopularPosts($limit = 5)
     {
         if (config('jarvis.posts.approve')) {

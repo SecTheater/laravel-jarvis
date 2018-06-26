@@ -22,6 +22,5 @@ class ActivationObserver
     {
         $activation->completed = (bool) $activation->completed;
         $activation->updated_at = date('Y-m-d H:i:s');
-        $activation->token = str_random(32);
     }
 }

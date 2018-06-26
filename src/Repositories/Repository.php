@@ -116,7 +116,6 @@ abstract class Repository implements RepositoryInterface
         } elseif ($method == $getCalledMethodName.'DoesntHave') {
             return $this->getEloquentDoesntHave(...$arguments);
         }
-
         return $this->model->$method(...$arguments);
     }
 

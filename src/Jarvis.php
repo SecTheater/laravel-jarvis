@@ -257,7 +257,7 @@ class Jarvis
 
     public function approve($class)
     {
-        if ('jarvis.'.config(strtolower(str_plural(str_replace('Eloquent', '', class_basename($class))))).'.approve') {
+        if (config('jarvis.'.strtolower(str_plural(str_replace('Eloquent', '', class_basename($class)))).'.approve')) {
             return ($class->update(['approved' => true, 'approved_by' => auth()->user()->id, 'approved_at' => date('Y-m-d H:i:s')])) ?: false;
         }
 

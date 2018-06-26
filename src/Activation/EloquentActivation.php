@@ -10,7 +10,6 @@ class EloquentActivation extends EloquentModel
     protected $casts = [
         'completed' => 'boolean',
     ];
-
     public function user()
     {
         return $this->belongsTo($this->userModel, 'user_id', 'id');
