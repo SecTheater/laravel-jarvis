@@ -93,7 +93,7 @@ class Jarvis
             $user = \UserRepository::create($data);
             if (config('jarvis.activations.register')) {
                 \ActivationRepository::generateToken($user);
-                if ($activation === true && ($EloquentActivation = \ActivationRepository::tokenExists($user))) {
+                if ($activation === true && ($EloquentActivation = \ActivationRepository::hasToken($user))) {
                     $EloquentActivation->update([
                             'token'        => null,
                             'completed'    => true,
