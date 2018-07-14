@@ -11,19 +11,16 @@ trait IssueTokens
 {
     public function hasToken(RestrictionInterface $user)
     {
-        if ($user->{$this->process}->count() && $user->{$this->process}->first()->token) {
-            return $user->{$this->process}->first();
+        if ($user->{$this->process}->count() && $user->{$this->process}()->orderBy('created_at','desc')->first()->token) {
+            return $user->{$this->process}()->orderBy('created_at','desc')->first();
         }
     }
 
-    public function hasOrCreateToken(RestrictionInterface $user, bool $create = false)
+    public function hasOrCreateToken(RestrictionInterface $user)
     {
-        if ($create) {
-            if (!$this->hasToken($user)) {
-                return $this->generateToken($user);
-            }
+        if (!$this->hasToken($user)) {
+            return $this->generateToken($user);
         }
-
         return $this->hasToken($user) ?? false;
     }
 
@@ -44,13 +41,11 @@ trait IssueTokens
 
             throw new $exception('User Does not have token');
         }
-
         if (${$this->process} && ${$this->process}->token !== null && ${$this->process}->token === $token) {
             ${$this->process}->token = null;
             ${$this->process}->completed_at = date('Y-m-d H:i:s');
             ${$this->process}->completed = true;
             ${$this->process}->save();
-
             return true;
         } elseif (${$this->process} && ${$this->process}->completed === true) {
             return true;
@@ -75,16 +70,10 @@ trait IssueTokens
 
     public function generateToken(RestrictionInterface $user)
     {
-        if (${$this->process} = $this->hasOrCreateToken($user)) {
-            return ${$this->process};
-        }
-
         return $this->create([
-                'token'      => str_random(32),
                 'user_id'    => $user->id,
                 'completed'  => false,
                 'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => null,
             ]);
     }
 
