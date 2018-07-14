@@ -11,8 +11,8 @@ trait IssueTokens
 {
     public function hasToken(RestrictionInterface $user)
     {
-        if ($user->{$this->process}->count() && $user->{$this->process}()->orderBy('created_at','desc')->first()->token) {
-            return $user->{$this->process}()->orderBy('created_at','desc')->first();
+        if ($user->{$this->process}->count() && $user->{$this->process}()->orderBy('created_at', 'desc')->first()->token) {
+            return $user->{$this->process}()->orderBy('created_at', 'desc')->first();
         }
     }
 
@@ -21,6 +21,7 @@ trait IssueTokens
         if (!$this->hasToken($user)) {
             return $this->generateToken($user);
         }
+
         return $this->hasToken($user) ?? false;
     }
 
@@ -46,6 +47,7 @@ trait IssueTokens
             ${$this->process}->completed_at = date('Y-m-d H:i:s');
             ${$this->process}->completed = true;
             ${$this->process}->save();
+
             return true;
         } elseif (${$this->process} && ${$this->process}->completed === true) {
             return true;
