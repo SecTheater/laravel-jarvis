@@ -44,12 +44,13 @@ trait IssueTokens
 
             throw new $exception('User Does not have token');
         }
-      
+
         if (${$this->process} && ${$this->process}->token !== null && ${$this->process}->token === $token) {
-              ${$this->process}->token = null;
-        ${$this->process}->completed_at = date('Y-m-d H:i:s');
-        ${$this->process}->completed = true;
-        ${$this->process}->save();
+            ${$this->process}->token = null;
+            ${$this->process}->completed_at = date('Y-m-d H:i:s');
+            ${$this->process}->completed = true;
+            ${$this->process}->save();
+
             return true;
         } elseif (${$this->process} && ${$this->process}->completed === true) {
             return true;
