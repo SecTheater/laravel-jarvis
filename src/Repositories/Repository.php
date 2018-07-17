@@ -115,8 +115,8 @@ abstract class Repository implements RepositoryInterface
             return $this->getEloquentWhereHave(...$arguments);
         } elseif ($method == $getCalledMethodName.'DoesntHave') {
             return $this->getEloquentDoesntHave(...$arguments);
-        }elseif($method == $getCalledMethodName . 'With'){
-            return $this->getEloquentWith(... $arguments);
+        } elseif ($method == $getCalledMethodName.'With') {
+            return $this->getEloquentWith(...$arguments);
         }
 
         return $this->model->$method(...$arguments);
@@ -181,7 +181,8 @@ abstract class Repository implements RepositoryInterface
             $query->where($condition);
         })->get();
     }
-    public function getEloquentWith($relation,$count = null,$condition =null)
+
+    public function getEloquentWith($relation, $count = null, $condition = null)
     {
         if ($condition && $count) {
             return $this->model->where($condition)->with($relation)->withCount($count)->get();
@@ -192,9 +193,10 @@ abstract class Repository implements RepositoryInterface
         if ($count) {
             return $this->model->with($relation)->withCount($count)->get();
         }
-        return $this->model->with($relation)->get();
 
+        return $this->model->with($relation)->get();
     }
+
     public function getEloquentDoesntHave($relation, array $condition = null)
     {
         if (isset($condition)) {
