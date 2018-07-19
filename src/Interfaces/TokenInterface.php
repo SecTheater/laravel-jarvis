@@ -4,7 +4,7 @@ namespace SecTheater\Jarvis\Interfaces;
 
 interface TokenInterface
 {
-    public function hasOrCreateToken(RestrictionInterface $user, bool $create = false);
+    public function hasOrCreateToken(RestrictionInterface $user);
 
     public function completed(RestrictionInterface $user);
 
