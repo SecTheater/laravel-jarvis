@@ -71,13 +71,14 @@ trait Roles
             foreach ($permission as $key => $val) {
                 if (!array_key_exists($key, $permissions)) {
                     $permissions = array_merge($permissions, [$key => $val]);
-                }else {
+                } else {
                     throw new InsufficientPermissionsException("$key exists");
                 }
             }
             if (count($permissions)) {
                 return $this->setPermissions($permissions);
             }
+
             return false;
         } elseif (is_string($permission)) {
             if (!array_key_exists($permission, $permissions)) {
