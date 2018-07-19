@@ -149,7 +149,17 @@ class Jarvis
 
         return $user;
     }
-
+    public function authenticateBasic(User $user, $remmeber = false)
+    {
+        
+    }
+    public function authenticateAndRemember(User $user,$check = true)
+    {
+        
+    }
+    public function authenticate(User $user,$remember = false, $check = true)
+    {
+    }
     public function login(array $data, $remember = false, $check = true)
     {
         if ($data = $this->filterLoginName($data)) {
