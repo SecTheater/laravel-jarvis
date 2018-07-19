@@ -72,7 +72,7 @@ trait Roles
                 if (!array_key_exists($key, $permissions)) {
                     $permissions = array_merge($permissions, [$key => $val]);
                 }else {
-                    throw new InsufficientPermissionsException("$key exists");
+                    throw new InsufficientPermissionsException("$key role exists for " . $this->first_name);
                 }
             }
             if (count($permissions)) {
