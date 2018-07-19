@@ -159,6 +159,7 @@ class Jarvis
     }
     public function authenticate(User $user,$remember = false, $check = true)
     {
+        return auth()->login($user);
     }
     public function login(array $data, $remember = false, $check = true)
     {
