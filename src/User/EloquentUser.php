@@ -11,6 +11,7 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use SecTheater\Jarvis\Interfaces\RestrictionInterface;
 use SecTheater\Jarvis\Model\EloquentModel;
+
 class EloquentUser extends EloquentModel implements RestrictionInterface, AuthenticatableContract, AuthorizableContract, CanResetPasswordContract
 {
     use Roles, Authenticatable, Authorizable, CanResetPassword;
