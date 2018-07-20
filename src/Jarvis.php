@@ -325,7 +325,7 @@ class Jarvis
     public function getUsers(bool $activated = false)
     {
         if (config('jarvis.activations.register')) {
-            return User::whereHas(['activation' => function($query) use($activated){
+            return User::whereHas(['activation' => function ($query) use ($activated) {
                 $query->whereCompleted($activated);
             }])->get();
         }

@@ -44,5 +44,4 @@ class PostObserver extends BaseObserver
             $post->title = ucfirst(str_replace('-', ' ', $post->title));
         }
     }
-
 }
