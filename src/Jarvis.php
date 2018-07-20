@@ -264,24 +264,8 @@ class Jarvis
         throw new ConfigException('Approval Process for '.str_plural(class_basename($class)).' Is not set !');
     }
 
-    public function upgradeUser($permissions, $id, array $prevent = null, $type = 'any')
+    public function upgradeUser($permissions, RestrictionInterface $user)
     {
-        if ($id instanceof RestrictionInterface) {
-            $user = $id;
-        } else {
-            $user = $this->getUserById($id);
-        }
-        if (!$user) {
-            return false;
-        }
-        if ($type !== 'any' && $type !== 'all') {
-            throw new \Exception('Invalid Type, Type should be either all or any.', 404);
-        }
-        if (isset($prevent) && $user->hasAnyRole($prevent) && $type === 'any') {
-            return false;
-        } elseif (isset($prevent) && $user->hasAllRole($prevent) && $type === 'all') {
-            return false;
-        }
         if (is_array($permissions)) {
             foreach ($permissions as $permission => $value) {
                 $user->updatePermission($permission, $value, true);
@@ -295,27 +279,11 @@ class Jarvis
         return false;
     }
 
-    public function downgradeUser($permissions, $id, array $prevent = null, $type = 'any')
+    public function downgradeUser($permissions, RestrictionInterface $user)
     {
-        if ($id instanceof RestrictionInterface) {
-            $user = $id;
-        } else {
-            $user = $this->getUserById($id);
-        }
-        if (!$user) {
-            return false;
-        }
-        if ($type !== 'any' && $type !== 'all') {
-            throw new \Exception('Invalid Type, Type should be either all or any.', 404);
-        }
-        if (isset($prevent) && $user->hasAnyRole($prevent) && $type === 'any') {
-            return false;
-        } elseif (isset($prevent) && $user->hasAllRole($prevent) && $type === 'all') {
-            return false;
-        }
         if (is_array($permissions)) {
             foreach ($permissions as $permission => $value) {
-                $user->updatePermission($user->id, $permission, $value, true);
+                $user->updatePermission($permission, $value, true);
             }
 
             return true;
@@ -354,10 +322,12 @@ class Jarvis
         return $users ?? null;
     }
 
-    public function getUsers($activated = false)
+    public function getUsers(bool $activated = false)
     {
         if (config('jarvis.activations.register')) {
-            return \ActivationRepository::with('user')->where('completed', $activated)->get();
+            return User::whereHas(['activation' => function($query) use($activated){
+                $query->whereCompleted($activated);
+            }])->get();
         }
 
         return User::all();
