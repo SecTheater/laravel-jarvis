@@ -4,7 +4,7 @@ namespace SecTheater\Jarvis\Observers;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PostObserver
+class PostObserver extends BaseObserver
 {
     public function creating(Model $post)
     {
@@ -45,19 +45,4 @@ class PostObserver
         }
     }
 
-    public function deleting(Model $post)
-    {
-        if (config('jarvis.comments.register')) {
-            $post->comments()->delete();
-        }
-        if (config('jarvis.replies.register')) {
-            $post->replies()->delete();
-        }
-        if (config('jarvis.likes.register')) {
-            $post->likes()->delete();
-        }
-        if (config('jarvis.tags.register')) {
-            $post->tags()->detach();
-        }
-    }
 }

@@ -4,7 +4,7 @@ namespace SecTheater\Jarvis\Observers;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ReplyObserver
+class ReplyObserver extends BaseObserver
 {
     public function creating(Model $reply)
     {

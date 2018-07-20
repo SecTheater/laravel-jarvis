@@ -3,8 +3,7 @@
 namespace SecTheater\Jarvis\Observers;
 
 use Illuminate\Database\Eloquent\Model;
-
-class UserObserver
+class UserObserver extends BaseObserver
 {
     public function creating(Model $user)
     {
@@ -40,26 +39,4 @@ class UserObserver
         $user->username = ucfirst($user->username);
     }
 
-    public function deleting(Model $user)
-    {
-        if (config('jarvis.posts.register')) {
-            $user->posts()->delete();
-        }
-        if (config('jarvis.activations.register')) {
-            $user->activation()->delete();
-        }
-        if (config('jarvis.comments.register')) {
-            $user->comments()->delete();
-        }
-        if (config('jarvis.replies.register')) {
-            $user->replies()->delete();
-        }
-        if (config('jarvis.likes.register')) {
-            $user->likes()->delete();
-        }
-        if (config('jarvis.tags.register')) {
-            $user->tags()->delete();
-        }
-        $user->reminder()->delete();
-    }
 }

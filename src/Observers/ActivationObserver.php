@@ -4,7 +4,7 @@ namespace SecTheater\Jarvis\Observers;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ActivationObserver
+class ActivationObserver extends BaseObserver
 {
     public function retrieved(Model $activation)
     {

@@ -4,7 +4,7 @@ namespace SecTheater\Jarvis\Observers;
 
 use Illuminate\Database\Eloquent\Model;
 
-class RoleObserver
+class RoleObserver extends BaseObserver
 {
     public function creating(Model $role)
     {
@@ -17,8 +17,4 @@ class RoleObserver
         $role->updated_at = date('Y-m-d H:i:s');
     }
 
-    public function deleting(Model $role)
-    {
-        $role->users()->detach();
-    }
 }

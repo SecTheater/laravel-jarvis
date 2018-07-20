@@ -3,6 +3,8 @@
 namespace SecTheater\Jarvis\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Schema;
+use SecTheater\Jarvis\Exceptions\ConfigException;
 use SecTheater\Jarvis\Interfaces\RepositoryInterface;
 
 abstract class Repository implements RepositoryInterface
@@ -12,7 +14,7 @@ abstract class Repository implements RepositoryInterface
         return $this->model->all($columns);
     }
 
-    public function find($attribute, $columns = ['*'])
+    public function find($attribute, array $columns = ['*'])
     {
         return $this->model->find($attribute, $columns);
     }
@@ -31,25 +33,6 @@ abstract class Repository implements RepositoryInterface
 
     public function create(array $attributes)
     {
-        if (isset($attributes['user_id']) && is_object($attributes['user_id'])) {
-            $attributes['user_id'] = $attributes['user_id']->id;
-        }
-        if (isset($attributes['post_id']) && is_object($attributes['post_id'])) {
-            $attributes['post_id'] = $attributes['post_id']->id;
-        }
-        if (isset($attributes['likable_id']) && is_object($attributes['likable_id'])) {
-            $attributes['likable_id'] = $attributes['likable_id']->id;
-        }
-        if (isset($attributes['comment_id']) && is_object($attributes['comment_id'])) {
-            $attributes['comment_id'] = $attributes['comment_id']->id;
-        }
-        if (isset($attributes['reply_id']) && is_object($attributes['reply_id'])) {
-            $attributes['reply_id'] = $attributes['reply_id']->id;
-        }
-        if (isset($attributes['tag_id']) && is_object($attributes['tag_id'])) {
-            $attributes['tag_id'] = $attributes['tag_id']->id;
-        }
-
         return $this->model->create($attributes);
     }
 
@@ -58,25 +41,6 @@ abstract class Repository implements RepositoryInterface
         if (!is_object($identifier)) {
             $identifier = $this->model->find($identifier);
         }
-        if (isset($attributes['user_id']) && is_object($attributes['user_id'])) {
-            $attributes['user_id'] = $attributes['user_id']->id;
-        }
-        if (isset($attributes['post_id']) && is_object($attributes['post_id'])) {
-            $attributes['post_id'] = $attributes['post_id']->id;
-        }
-        if (isset($attributes['likable_id']) && is_object($attributes['likable_id'])) {
-            $attributes['likable_id'] = $attributes['likable_id']->id;
-        }
-        if (isset($attributes['comment_id']) && is_object($attributes['comment_id'])) {
-            $attributes['comment_id'] = $attributes['comment_id']->id;
-        }
-        if (isset($attributes['reply_id']) && is_object($attributes['reply_id'])) {
-            $attributes['reply_id'] = $attributes['reply_id']->id;
-        }
-        if (isset($attributes['tag_id']) && is_object($attributes['tag_id'])) {
-            $attributes['tag_id'] = $attributes['tag_id']->id;
-        }
-
         return ($identifier->update($attributes)) ? $identifier : false;
     }
 
@@ -122,13 +86,16 @@ abstract class Repository implements RepositoryInterface
         return $this->model->$method(...$arguments);
     }
 
-    public function recent(array $attributes = null)
+    public function recent(array $attributes = null,$column ='created_at')
     {
+        if (!Schema::hasColumn($this->model->getTable(),$column)) {
+            throw new ConfigException("{$this->model->getTable()} Doesn't have $column");
+        }
         if (!$attributes) {
-            return $this->model->all()->sortByDesc('created_at');
+            return $this->model->all()->sortByDesc($column);
         }
         if ($attributes['condition'] && !in_array('approvals', $attributes)) {
-            return $this->findBy(...$attributes['condition'])->sortByDesc('created_at');
+            return $this->findBy(...$attributes['condition'])->sortByDesc($column);
         }
         if (in_array('approvals', $attributes)) {
             return $this->recentApprovals($attributes['condition']);

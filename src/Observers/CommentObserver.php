@@ -4,9 +4,8 @@ namespace SecTheater\Jarvis\Observers;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CommentObserver
+class CommentObserver extends BaseObserver
 {
-    // Any Comment Model could be passed here.
     public function creating(Model $comment)
     {
         $comment->user_id = user()->id;
@@ -35,13 +34,6 @@ class CommentObserver
             $comment->approved_by = null;
             $comment->approved_at = null;
             $comment->updated_at = date('Y-m-d H:i:s');
-        }
-    }
-
-    public function deleting(Model $comment)
-    {
-        if (config('jarvis.replies.register')) {
-            $comment->replies()->delete();
         }
     }
 }

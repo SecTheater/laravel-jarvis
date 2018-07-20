@@ -4,7 +4,7 @@ namespace SecTheater\Jarvis\Observers;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ReminderObserver
+class ReminderObserver extends BaseObserver
 {
     public function retrieved(Model $reminder)
     {
