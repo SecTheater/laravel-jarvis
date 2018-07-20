@@ -76,17 +76,9 @@ class JarvisServiceProvider extends ServiceProvider
         $this->commands(\SecTheater\Jarvis\Commands\InstallCommand::class);
         $this->commands(\SecTheater\Jarvis\Commands\ControllersCommand::class);
         $this->commands(\SecTheater\Jarvis\Commands\AuthCommand::class);
-        $this->commands(\SecTheater\Jarvis\Commands\AssignUserCommand::class);
         $this->commands(\SecTheater\Jarvis\Commands\CustomValidationCommand::class);
         $this->commands(\SecTheater\Jarvis\Commands\RequestsCommand::class);
-        $this->commands(\SecTheater\Jarvis\Commands\ObserversCommand::class);
-        $this->commands(\SecTheater\Jarvis\Commands\RegisterAuthorizationCommand::class);
         $this->commands(\SecTheater\Jarvis\Commands\SeederCommand::class);
-        $this->commands(\SecTheater\Jarvis\Commands\SeederCommand::class);
-        $this->commands(\SecTheater\Jarvis\Commands\FacadeMakeCommand::class);
-        $this->commands(\SecTheater\Jarvis\Commands\ResponseMakeCommand::class);
-        $this->commands(\SecTheater\Jarvis\Commands\RepositoryMakeCommand::class);
-        //  $this->commands(Commands\CreatePermissionCommand::class);
     }
 
     private function registerObservers()

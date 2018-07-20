@@ -52,7 +52,7 @@ class SeederCommand extends Command
         }
         $this->call('db:seed');
         if ($this->confirm('Do You wish to convert Permissions into Gates & Policies ? ')) {
-            $this->call('sectheater:register-authorization');
+            $this->call('artify:register-authorization');
         }
     }
 }
