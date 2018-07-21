@@ -175,6 +175,7 @@ class JarvisServiceProvider extends ServiceProvider
                 $this->models[$key] = $value;
             }
         }
+
         return $this->models ?? null;
     }
 }

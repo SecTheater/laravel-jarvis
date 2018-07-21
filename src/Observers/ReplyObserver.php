@@ -9,7 +9,7 @@ class ReplyObserver extends BaseObserver
     public function creating(Model $reply)
     {
         $reply->user_id = user()->id;
-       $this->fireApprovalListeners($reply);
+        $this->fireApprovalListeners($reply);
     }
 
     public function updating(Model $reply)

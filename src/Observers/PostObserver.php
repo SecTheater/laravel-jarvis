@@ -21,7 +21,7 @@ class PostObserver extends BaseObserver
     public function retrieved(Model $post)
     {
         if (isset($post->title)) {
-            $post->title = str_slug($post->title,' ');
+            $post->title = str_slug($post->title, ' ');
         }
     }
 }

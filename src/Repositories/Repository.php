@@ -129,6 +129,7 @@ abstract class Repository implements RepositoryInterface
     {
         if (is_array($condition) || is_array($operator)) {
             list($condition) = [$condition ?? $operator];
+
             return $this->getEloquentWhereHave($relation, $condition);
         }
         if (func_num_args() === 2) {
