@@ -54,43 +54,29 @@ class PostRepository extends Repository implements PostRepositoryInterface
        }
        return $collection;
     }
-
-    public function getApproved($relation = null, array $condition = null)
+    public function fetchPosts($relation = null,array $condition = null ,bool $approved = false)
     {
         if (!config('jarvis.posts.approve')) {
             throw new ConfigException('Approval Is not enabled for posts.');
         }
-        if (isset($relation, $condition)) {
-            return $this->model->where('approved', true)->withCount([
-                $relation,
-                "$relation AS related_{$relation}" => function ($query) use ($condition) {
-                    $query->where($condition);
-                },
-            ])->get();
+        if ($condition && $relation) {
+            $condition = array_merge($condition, ['posts.approved' => $approved]);
+            return $this->getPostsHave($relation, $condition);
         }
-        if (isset($relation)) {
-            return $this->getPostsHave($relation, ['posts.approved' => true]);
+        if ($condition) {
+            $condition = array_merge($condition, ['posts.approved' => $approved]);
+            return $this->model->where($condition)->get();
         }
-
-        return $this->model->whereApproved(true)->get();
+        return $this->model->whereApproved($approved)->get();
+    }
+    public function getApproved($relation = null, array $condition = null)
+    {
+        return $this->fetchPosts($relation,$condition,true);
     }
 
     public function getUnapproved($relation = null, array $condition = null)
     {
-        if (!config('jarvis.posts.approve')) {
-            throw new ConfigException('Approval Is not enabled for posts.');
-        }
-
-        if (isset($relation, $condition)) {
-            return $this->model->where('approved', true)->withCount([
-                $relation,
-                "$relation AS related_{$relation}" => function ($query) {
-                    $query->where($condition);
-                },
-            ])->get();
-        }
-
-        return $this->model->whereApproved(false)->get();
+        return $this->fetchPosts($relation,$condition,false);
     }
 
     public function archives()
