@@ -8,13 +8,13 @@ class PostObserver extends BaseObserver
 {
     public function creating(Model $post)
     {
-        // $post->user_id = user()->id;
+        $post->user_id = user()->id;
         $this->fireApprovalListeners($post);
     }
 
     public function updating(Model $post)
     {
-        // $post->updated_by = user()->id;
+        $post->updated_by = user()->id;
         $this->fireApprovalListeners($post);
     }
 
