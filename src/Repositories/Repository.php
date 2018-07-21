@@ -41,6 +41,7 @@ abstract class Repository implements RepositoryInterface
         if (!is_object($identifier)) {
             $identifier = $this->model->find($identifier);
         }
+
         return ($identifier->update($attributes)) ? $identifier : false;
     }
 
@@ -86,9 +87,9 @@ abstract class Repository implements RepositoryInterface
         return $this->model->$method(...$arguments);
     }
 
-    public function recent(array $attributes = null,$column ='created_at')
+    public function recent(array $attributes = null, $column = 'created_at')
     {
-        if (!Schema::hasColumn($this->model->getTable(),$column)) {
+        if (!Schema::hasColumn($this->model->getTable(), $column)) {
             throw new ConfigException("{$this->model->getTable()} Doesn't have $column");
         }
         if (!$attributes) {

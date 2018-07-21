@@ -24,5 +24,4 @@ class PostObserver extends BaseObserver
             $post->title = str_slug($post->title,' ');
         }
     }
-
 }

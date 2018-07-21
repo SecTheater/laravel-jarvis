@@ -16,5 +16,4 @@ class RoleObserver extends BaseObserver
     {
         $role->updated_at = date('Y-m-d H:i:s');
     }
-
 }

@@ -3,6 +3,7 @@
 namespace SecTheater\Jarvis\Observers;
 
 use Illuminate\Database\Eloquent\Model;
+
 class UserObserver extends BaseObserver
 {
     public function creating(Model $user)
@@ -14,5 +15,4 @@ class UserObserver extends BaseObserver
     {
         $this->fireObserversListeners($user);
     }
-
 }
