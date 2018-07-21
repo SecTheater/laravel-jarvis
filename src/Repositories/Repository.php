@@ -98,31 +98,6 @@ abstract class Repository implements RepositoryInterface
         if ($attributes['condition'] && !in_array('approvals', $attributes)) {
             return $this->findBy(...$attributes['condition'])->sortByDesc($column);
         }
-        if (in_array('approvals', $attributes)) {
-            return $this->recentApprovals($attributes['condition']);
-        }
-    }
-
-    public function recentApprovals($attributes)
-    {
-        if (is_array($attributes[0]) && count($attributes) > 1) {
-            // Array Condition contains an array with sub-condition.
-            if (count($attributes) > 1) {
-                $attributes['approved'] = true;
-            } elseif (count($attributes) == 1) {
-                $attributes[0]['approved'] = true;
-            }
-        } elseif (count($attributes) == 2) {
-            list($key, $value) = $attributes;
-            unset($attributes);
-            $attributes = [$key => $value, 'approved' => true];
-        } elseif (count($attributes) == 3) {
-            list($key, $operator, $value) = $attributes;
-            unset($attributes);
-            $attributes = ['approved' => true, [$key, $operator, $value]];
-        }
-
-        return $this->findBy($attributes)->sortByDesc('created_at');
     }
 
     public function getEloquentHave($relation, $operator = '=', $condition = null)
