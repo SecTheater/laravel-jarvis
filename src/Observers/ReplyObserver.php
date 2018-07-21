@@ -9,26 +9,11 @@ class ReplyObserver extends BaseObserver
     public function creating(Model $reply)
     {
         $reply->user_id = user()->id;
-        if (config('jarvis.replies.approve') && user()->hasAnyRole(['approve-reply'])) {
-            $reply->approved = true;
-            $reply->approved_by = user()->id;
-            $reply->approved_at = date('Y-m-d H:i:s');
-            $reply->updated_at = null;
-        }
+       $this->fireApprovalListeners($reply);
     }
 
     public function updating(Model $reply)
     {
-        if (config('jarvis.replies.approve') && user()->hasAnyRole(['approve-reply'])) {
-            $reply->approved = true;
-            $reply->approved_by = user()->id;
-            $reply->approved_at = date('Y-m-d H:i:s');
-            $reply->updated_at = date('Y-m-d H:i:s');
-        } elseif (config('jarvis.replies.approve') && !user()->hasAnyRole(['approve-reply'])) {
-            $reply->approved = false;
-            $reply->approved_by = null;
-            $reply->approved_at = null;
-            $reply->updated_at = date('Y-m-d H:i:s');
-        }
+        $this->fireApprovalListeners($reply);
     }
 }

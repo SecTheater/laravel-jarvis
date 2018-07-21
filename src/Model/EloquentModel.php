@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class EloquentModel extends Model
 {
     protected $guarded = [];
-
+    public $observers = [];
     public function __get($name)
     {
         if (!property_exists(static::class, $name) && str_contains($name, 'Model')) {

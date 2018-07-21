@@ -9,31 +9,11 @@ class CommentObserver extends BaseObserver
     public function creating(Model $comment)
     {
         $comment->user_id = user()->id;
-        if (config('jarvis.comments.approve') && user()->hasAnyRole(['approve-comment'])) {
-            $comment->approved = true;
-            $comment->approved_by = user()->id;
-            $comment->approved_at = date('Y-m-d H:i:s');
-            $comment->updated_at = null;
-        } elseif (config('jarvis.comments.approve') && !user()->hasAnyRole(['approve-comment'])) {
-            $comment->approved = false;
-            $comment->approved_by = null;
-            $comment->approved_at = null;
-            $comment->updated_at = date('Y-m-d H:i:s');
-        }
+        $this->fireApprovalListeners($comment);
     }
 
     public function updating(Model $comment)
     {
-        if (config('jarvis.comments.approve') && user()->hasAnyRole(['approve-comment'])) {
-            $comment->approved = true;
-            $comment->approved_by = user()->id;
-            $comment->approved_at = date('Y-m-d H:i:s');
-            $comment->updated_at = date('Y-m-d H:i:s');
-        } elseif (config('jarvis.comments.approve') && !user()->hasAnyRole(['approve-comment'])) {
-            $comment->approved = false;
-            $comment->approved_by = null;
-            $comment->approved_at = null;
-            $comment->updated_at = date('Y-m-d H:i:s');
-        }
+        $this->fireApprovalListeners($comment);
     }
 }

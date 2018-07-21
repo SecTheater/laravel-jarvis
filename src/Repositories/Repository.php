@@ -77,7 +77,7 @@ abstract class Repository implements RepositoryInterface
             return $this->getEloquentHave(...$arguments);
         } elseif ($method == $getCalledMethodName.'WhereHave') {
             return $this->getEloquentWhereHave(...$arguments);
-        } elseif ($method == $getCalledMethodName.'DoesntHave') {
+        } elseif ($method == $getCalledMethodName.'WhereDoesntHave') {
             return $this->getEloquentDoesntHave(...$arguments);
         } elseif ($method == $getCalledMethodName.'With') {
             return $this->getEloquentWith(...$arguments);
@@ -128,7 +128,6 @@ abstract class Repository implements RepositoryInterface
     {
         if (is_array($condition) || is_array($operator)) {
             list($condition) = [$condition ?? $operator];
-
             return $this->getEloquentWhereHave($relation, $condition);
         }
         if (func_num_args() === 2) {
@@ -172,6 +171,6 @@ abstract class Repository implements RepositoryInterface
             })->get();
         }
 
-        return $this->model->doesntHave($relation)->get();
+        return $this->model->whereDoesntHave($relation)->get();
     }
 }

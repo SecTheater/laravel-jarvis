@@ -3,6 +3,7 @@
 namespace SecTheater\Jarvis;
 
 use App\User;
+use Artify\Artify\Traits\Roles\Roles;
 use Hash;
 use Illuminate\Support\Facades\Route;
 use Schema;
@@ -18,7 +19,6 @@ use SecTheater\Jarvis\Reply\ReplyRepository;
 use SecTheater\Jarvis\Role\RoleRepository;
 use SecTheater\Jarvis\Routes\RouteRegistrar;
 use SecTheater\Jarvis\Tag\TagRepository;
-use SecTheater\Jarvis\Traits\Roles\Roles;
 use SecTheater\Jarvis\User\EloquentUser;
 use SecTheater\Jarvis\User\UserRepository;
 
