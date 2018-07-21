@@ -16,43 +16,44 @@ class PostRepository extends Repository implements PostRepositoryInterface
 
     public function getPopularPosts($limit = 5)
     {
-            $collection =  $this->model->whereHas('comments.replies',
-                    function($query){
+        $collection = $this->model->whereHas('comments.replies',
+                    function ($query) {
                         if (config('jarvis.comments.approve')) {
-                            $query->where('comments.approved',true);
+                            $query->where('comments.approved', true);
                         }
                         if (config('jarvis.replies.approve')) {
-                            $query->where('replies.approved',true);
+                            $query->where('replies.approved', true);
                         }
                     })
-                ->orWhereHas('comments',function($query){
-                        if (config('jarvis.comments.approve')) {
-                            $query->where('comments.approved',true);
-                        }
+                ->orWhereHas('comments', function ($query) {
+                    if (config('jarvis.comments.approve')) {
+                        $query->where('comments.approved', true);
+                    }
                 })
                 ->withCount([
-                    'comments' => function($query){
+                    'comments' => function ($query) {
                         if (config('jarvis.comments.approve')) {
-                            $query->where('comments.approved',true);
+                            $query->where('comments.approved', true);
                         }
                     },
-                    'replies' => function($query){
+                    'replies' => function ($query) {
                         if (config('jarvis.replies.approve')) {
-                            $query->where('replies.approved',true);
+                            $query->where('replies.approved', true);
                         }
-                    }
+                    },
                 ])
                 ->limit($limit)
                 ->get()
-                ->sortBy(function($post,$key){
+                ->sortBy(function ($post, $key) {
                     return $post['comments_count'] + $post['replies_count'];
                 });
-       if (config('jarvis.posts.approve')) {
+        if (config('jarvis.posts.approve')) {
             return collect($collection->filter(function ($post, $key) {
                 return $post->approved;
             })->all());
-       }
-       return $collection;
+        }
+
+        return $collection;
     }
 
     public function getApproved($relation = null, array $condition = null)
