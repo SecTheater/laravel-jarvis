@@ -55,29 +55,34 @@ class PostRepository extends Repository implements PostRepositoryInterface
 
         return $collection;
     }
-    public function fetchPosts($relation = null,array $condition = null ,bool $approved = false)
+
+    public function fetchPosts($relation = null, array $condition = null, bool $approved = false)
     {
         if (!config('jarvis.posts.approve')) {
             throw new ConfigException('Approval Is not enabled for posts.');
         }
         if ($condition && $relation) {
             $condition = array_merge($condition, ['posts.approved' => $approved]);
+
             return $this->getPostsHave($relation, $condition);
         }
         if ($condition) {
             $condition = array_merge($condition, ['posts.approved' => $approved]);
+
             return $this->model->where($condition)->get();
         }
+
         return $this->model->whereApproved($approved)->get();
     }
+
     public function getApproved($relation = null, array $condition = null)
     {
-        return $this->fetchPosts($relation,$condition,true);
+        return $this->fetchPosts($relation, $condition, true);
     }
 
     public function getUnapproved($relation = null, array $condition = null)
     {
-        return $this->fetchPosts($relation,$condition,false);
+        return $this->fetchPosts($relation, $condition, false);
     }
 
     public function archives()
