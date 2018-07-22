@@ -55,14 +55,15 @@ class PostRepository extends Repository implements PostRepositoryInterface
 
         return $collection;
     }
+
     public function getApproved($relation = null, array $condition = null)
     {
-        return $this->fetchPosts($relation,$condition,true);
+        return $this->fetchPosts($relation, $condition, true);
     }
 
     public function getUnapproved($relation = null, array $condition = null)
     {
-        return $this->fetchPosts($relation,$condition,false);
+        return $this->fetchPosts($relation, $condition, false);
     }
 
     public function archives()
