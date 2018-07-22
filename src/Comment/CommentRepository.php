@@ -26,42 +26,17 @@ class CommentRepository extends Repository implements CommentInterface
 
     public function commentsWith($relation)
     {
-        return $this->model->with($relation)->get();
+        return $this->getCommentsWith($relation);
     }
 
-    public function getApproved($relation = null)
+    public function getApproved($relation = null, array $condition = null)
     {
-        if (!config('jarvis.posts.approve')) {
-            throw new ConfigException('Approval Is not enabled for posts.');
-        }
-
-        if (isset($relation)) {
-            return $this->model->where('approved', true)->withCount([
-                $relation,
-                "$relation AS pending_{$relation}" => function ($query) {
-                    $query->where('approved', true);
-                },
-            ])->get();
-        }
-
-        return $this->model->whereApproved(true)->get();
+        return $this->fetchComments($relation,$condition,true);
     }
 
-    public function getUnapproved($relation = null)
+    public function getUnapproved($relation = null, array $condition = null)
     {
-        if (!config('jarvis.posts.approve')) {
-            throw new ConfigException('Approval Is not enabled for posts.');
-        }
-
-        if (isset($relation)) {
-            return $this->model->where('approved', false)->withCount([
-                $relation,
-                "$relation AS pending_{$relation}" => function ($query) {
-                    $query->where('approved', false);
-                },
-            ])->get();
-        }
-
-        return $this->model->whereApproved(false)->get();
+        return $this->fetchComments($relation,$condition,false);
     }
+
 }
