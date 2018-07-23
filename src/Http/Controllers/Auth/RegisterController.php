@@ -16,8 +16,8 @@ class RegisterController extends Controller
     public function postRegister(RegisterRequest $request)
     {
         if ($user = Jarvis::registerWithRole($request->except(['password_confirmation', '_token']), 'user', false)) {
-            //redirect the user with a nice message $user->first_name
+            return response('Successfully Registered',200);
         }
-        //something goes here
+        return response('Failed to register', 200);
     }
 }

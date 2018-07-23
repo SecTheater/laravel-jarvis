@@ -94,22 +94,6 @@ class RouteRegistrar
                 'uses' => 'ResetPasswordController@postPasswordResetThroughEmail',
                 'as'   => 'reset-password',
             ]);
-            $router->get('/resetBySecurityQuestion', [
-                'uses' => 'ResetPasswordController@getPasswordResetThroughQuestion',
-                'as'   => 'reset-security',
-            ]);
-            $router->post('/resetBySecurityQuestion/stage1', [
-                'uses' => 'ResetPasswordController@postPasswordResetThroughQuestion1',
-                'as'   => 'reset-security-1',
-            ]);
-            $router->post('/resetBySecurityQuestion/stage2', [
-                'uses' => 'ResetPasswordController@postPasswordResetThroughQuestion2',
-                'as'   => 'reset-security-2',
-            ]);
-            $router->post('/resetBySecurityQuestion/stage3', [
-                'uses' => 'ResetPasswordController@postPasswordResetThroughQuestion3',
-                'as'   => 'reset-security-3',
-            ]);
         });
     }
 }
