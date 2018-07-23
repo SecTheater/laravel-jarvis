@@ -52,8 +52,8 @@ class Jarvis
      * [changePassword Changes Password Of The user provided.].
      *
      * @param UserInterface $user
-     * @param string               $old_password
-     * @param string               $new_pasword
+     * @param string        $old_password
+     * @param string        $new_pasword
      *
      * @return [bool]
      */

@@ -13,7 +13,6 @@ class TagRepository extends Repository implements TagInterface
         $this->model = $model;
     }
 
-
     public function getTagPosts($name)
     {
         if (is_object($name)) {
