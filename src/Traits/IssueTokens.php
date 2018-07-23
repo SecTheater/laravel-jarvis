@@ -2,86 +2,126 @@
 
 namespace SecTheater\Jarvis\Traits;
 
-use SecTheater\Jarvis\Interfaces\RestrictionInterface;
+use SecTheater\Jarvis\Interfaces\UserInterface;
 
 /**
  * Issuing Tokens within Activation & Reminder Process.
  */
 trait IssueTokens
 {
-    public function hasToken(RestrictionInterface $user)
+    /**
+     * Retrieves the first applied token.
+     * @param  UserInterface $user
+     * @param  [string]        $token
+     * @return  Illuminate\Database\Eloquent\Model|null
+     */
+    public function hasToken(UserInterface $user,string $token = null)
     {
-        if ($user->{$this->process}->count() && $user->{$this->process}()->orderBy('created_at', 'desc')->first()->token) {
-            return $user->{$this->process}()->orderBy('created_at', 'desc')->first();
+        ${$this->process} = $user->{$this->process}()->where(['completed' => false, ['created_at', '>=', \Carbon\Carbon::now()->subDays(config("jarvis.{$this->process}s.expiration"))->format('Y-m-d H:i:s')]]);
+        if($token){
+            ${$this->process}->whereToken($token);
         }
+        return ${$this->process}->first();
     }
-
-    public function hasOrCreateToken(RestrictionInterface $user)
+    /**
+     * Retrieves the first applied or token or create new one.
+     * @param  UserInterface $user [description]
+     * @return  Illuminate\Database\Eloquent\Model
+     */
+    public function hasOrCreateToken(UserInterface $user)
     {
-        if (!$this->hasToken($user)) {
-            return $this->generateToken($user);
-        }
-
-        return $this->hasToken($user) ?? false;
+        return $this->hasToken($user) ?? $this->generateToken($user);
     }
-
-    public function completed(RestrictionInterface $user)
+    /**
+     * Check if the user has completed
+     * @param  UserInterface $user
+     * @return boolean
+     */
+    public function completed(UserInterface $user)
     {
-        if (${$this->process} = $this->hasOrCreateToken($user)) {
-            return ${$this->process}->completed;
-        }
-
-        return false;
+        return $user->activation()->whereCompleted(true)->first()->completed ?? false;
     }
-
-    public function complete(RestrictionInterface $user, $token)
+    /**
+     * Complete the process to a specific user
+     * @param  UserInterface $user
+     * @param  [string]        $token
+     * @return boolean|ActivationException|ReminderException
+     */
+    public function complete(UserInterface $user, string $token)
     {
-        ${$this->process} = $this->hasOrCreateToken($user);
+        ${$this->process} = $this->hasToken($user,$token);
         if (!${$this->process}) {
             $exception = "SecTheater\Jarvis\\".ucfirst($this->process).'\\'.ucfirst($this->process).'Exception';
 
-            throw new $exception('User Does not have token');
+            throw new $exception('User Does not have this token');
         }
-        if (${$this->process} && ${$this->process}->token !== null && ${$this->process}->token === $token) {
+        if (${$this->process} && ${$this->process}->token === $token) {
             ${$this->process}->token = null;
             ${$this->process}->completed_at = date('Y-m-d H:i:s');
             ${$this->process}->completed = true;
             ${$this->process}->save();
-
-            return true;
-        } elseif (${$this->process} && ${$this->process}->completed === true) {
             return true;
         }
-
-        return false;
     }
-
+    /**
+     * Deletes Activation/Reminder Records based on completed column
+     * @param  bool|boolean $completed [description]
+     * @return boolean
+     */
     public function clear(bool $completed = false):bool
     {
-        return (bool) $this->model->where('completed', $completed)->delete();
+        return !! $this->model->where('completed', $completed)->delete();
     }
-
-    public function clearFor(RestrictionInterface $user, bool $completed = false, bool $any = false):bool
+    /**
+     * Delete Activation/Reminder Record for sepcific user , based on completed column or any.
+     * @param  UserInterface $user
+     * @param  bool|boolean  $completed
+     * @param  bool|boolean  $any
+     * @return bool
+     */
+    public function clearFor(UserInterface $user, bool $completed = false, bool $any = false):bool
     {
         if ($any) {
-            return (bool) $this->model->where(['user_id' => $user->id])->delete();
+            return !! $user->{$this->process}()->delete();
         }
-
-        return (bool) $this->model->where(['user_id' => $user->id, 'completed' => $completed])->delete();
+        return !! $user->{$this->process}()->whereCompleted($completed)->delete();
     }
-
-    public function generateToken(RestrictionInterface $user)
+    /**
+     * generates token for specific user
+     * @param  UserInterface $user  [description]
+     * @param  bool|boolean  $force [description]
+     * @return  Illuminate\Database\Eloquent\Model|boolean
+     */
+    public function generateToken(UserInterface $user,bool $force = false)
     {
+        $user->{$this->process}()->whereCompleted(false)->delete();
+        if ($user->{$this->process}->count() && !$force) {
+            return false;
+        }
         return $this->create([
                 'user_id'    => $user->id,
                 'completed'  => false,
                 'created_at' => date('Y-m-d H:i:s'),
             ]);
     }
-
-    public function regenerateToken(RestrictionInterface $user, bool $create = false)
+    /**
+     * generates a token for the passed user
+     * @param  UserInterface $user [description]
+     * @return  Illuminate\Database\Eloquent\Model|boolean
+     */
+    public function forceGenerateToken(UserInterface $user)
     {
-        if (${$this->process} = $this->hasOrCreateToken($user)) {
+        return $this->generateToken($user,true);
+    }
+    /**
+     * Regnerates a token for the passed user.
+     * @param  UserInterface $user   [description]
+     * @param  bool|boolean         $create [description]
+     * @return  Illuminate\Database\Eloquent\Model|boolean
+     */
+    public function regenerateToken(UserInterface $user, bool $create = false)
+    {
+        if (${$this->process} = $this->hasToken($user)) {
             ${$this->process}->update([
                     'token'        => str_random(32),
                     'completed'    => false,
@@ -92,20 +132,17 @@ trait IssueTokens
             return ${$this->process};
         }
         if ($create) {
-            return $this->create([
-                    'token'      => str_random(32),
-                    'user_id'    => $user->id,
-                    'completed'  => false,
-                    'created_at' => date('Y-m-d H:i:s'),
-                    'updated_at' => null,
-                ]);
+           return $this->generateToken($user);
         }
-
         return false;
     }
-
-    public function removeExpired()
+    /**
+     * removes expired records which aren't completed yet
+     * @param  int|null $days
+     * @return bool
+     */
+    public function removeExpired(int $days = null)
     {
-        return (bool) $this->model->where(['completed' => false, ['created_at', '>=', \Carbon\Carbon::now()->subDays(config("jarvis.{$this->process}s.expiration"))->format('Y-m-d H:i:s')]])->delete();
+        return (bool) $this->model->where(['completed' => false, ['created_at', '>=', \Carbon\Carbon::now()->subDays($days ?? config("jarvis.{$this->process}s.expiration"))->format('Y-m-d H:i:s')]])->delete();
     }
 }

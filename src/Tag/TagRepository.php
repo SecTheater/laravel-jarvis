@@ -13,14 +13,6 @@ class TagRepository extends Repository implements TagInterface
         $this->model = $model;
     }
 
-    public function userTags($user_id)
-    {
-        if (is_object($user_id)) {
-            $user_id = $user_id->id;
-        }
-
-        return $this->findBy(['user_id' => $user_id]);
-    }
 
     public function getTagPosts($name)
     {

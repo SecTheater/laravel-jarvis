@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
 use SecTheater\Jarvis\Exceptions\ConfigException;
 use SecTheater\Jarvis\Interfaces\RepositoryInterface;
+use SecTheater\Jarvis\Interfaces\UserInterface;
 
 abstract class Repository implements RepositoryInterface
 {
@@ -183,6 +184,14 @@ abstract class Repository implements RepositoryInterface
         }
 
     }
+    public function fetchUser(UserInterface $user, array $condition = null ,$relation)
+    {
+        if (isset($condition)) {
+            return $user->{$relation}()->where($condition)->get();
+        }
+        return $user->{$relation};
+
+    }
     /**
      * fetches approved/unapproved eloquent collection associated with model.
      * @param  [string]       $relation
@@ -242,8 +251,15 @@ abstract class Repository implements RepositoryInterface
         if (method_exists($this,$callingMethod)) {
             return $this->{$callingMethod}(... $arguments);
         }
-        if (str_contains($method, 'fetch')) {
+        if (str_contains($method, 'fetch') && str_replace('fetch','',$method) == ucfirst($this->getModelNamePlural())) {
             return $this->fetch(...$arguments);
+        }
+        if (str_contains($method,'user') && str_replace('user','',$method) == ucfirst($this->getModelNamePlural())) {
+            if (count($arguments) == 1) {
+                $arguments[] = null;
+            }
+            $arguments[] =  $this->getModelNamePlural();
+            return $this->fetchUser(... $arguments);
         }
         return $this->model->$method(...$arguments);
     }

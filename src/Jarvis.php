@@ -11,7 +11,7 @@ use SecTheater\Jarvis\Activation\ActivationException;
 use SecTheater\Jarvis\Activation\ActivationRepository;
 use SecTheater\Jarvis\Comment\CommentRepository;
 use SecTheater\Jarvis\Exceptions\ConfigException;
-use SecTheater\Jarvis\Interfaces\RestrictionInterface;
+use SecTheater\Jarvis\Interfaces\UserInterface;
 use SecTheater\Jarvis\Like\LikeRepository;
 use SecTheater\Jarvis\Post\PostRepository;
 use SecTheater\Jarvis\Reminder\ReminderRepository;
@@ -51,13 +51,13 @@ class Jarvis
     /**
      * [changePassword Changes Password Of The user provided.].
      *
-     * @param RestrictionInterface $user
+     * @param UserInterface $user
      * @param string               $old_password
      * @param string               $new_pasword
      *
      * @return [bool]
      */
-    public function changePassword(string $old_password, string $new_pasword, RestrictionInterface $user = null):bool
+    public function changePassword(string $old_password, string $new_pasword, UserInterface $user = null):bool
     {
         if (!isset($user)) {
             $user = auth()->user();
@@ -83,9 +83,9 @@ class Jarvis
         return false;
     }
 
-    public function register(array $data, $activation = false)
+    public function register(array $data, bool $activation = false)
     {
-        if (!config('jarvis.activations.register') && $activation == true) {
+        if (!config('jarvis.activations.register') && $activation) {
             throw new ActivationException('Activation process is not enabled within your project.');
         }
         if ($this->checkColumns($data)) {
@@ -93,7 +93,7 @@ class Jarvis
             $user = \UserRepository::create($data);
             if (config('jarvis.activations.register')) {
                 \ActivationRepository::generateToken($user);
-                if ($activation === true && ($EloquentActivation = \ActivationRepository::hasToken($user))) {
+                if ($activation && ($EloquentActivation = \ActivationRepository::hasToken($user))) {
                     $EloquentActivation->update([
                             'token'        => null,
                             'completed'    => true,
@@ -129,7 +129,7 @@ class Jarvis
 
     public function loginById($id, $remember = false)
     {
-        if ($id instanceof RestrictionInterface) {
+        if ($id instanceof UserInterface) {
             $user = $id;
         }
 
@@ -138,7 +138,7 @@ class Jarvis
         }
         $user = \Auth::loginUsingId($user->id ?? $id, $remember);
         if (config('jarvis.activations.register')) {
-            if ($user->activation()->exists() && $user->activation->first()->completed === true) {
+            if (\ActivationRepository::completed($user)) {
                 return $this->user();
             } else {
                 $this->logout();
@@ -264,7 +264,7 @@ class Jarvis
         throw new ConfigException('Approval Process for '.str_plural(class_basename($class)).' Is not set !');
     }
 
-    public function upgradeUser($permissions, RestrictionInterface $user)
+    public function upgradeUser($permissions, UserInterface $user)
     {
         if (is_array($permissions)) {
             foreach ($permissions as $permission => $value) {
@@ -279,7 +279,7 @@ class Jarvis
         return false;
     }
 
-    public function downgradeUser($permissions, RestrictionInterface $user)
+    public function downgradeUser($permissions, UserInterface $user)
     {
         if (is_array($permissions)) {
             foreach ($permissions as $permission => $value) {

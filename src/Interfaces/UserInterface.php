@@ -2,6 +2,6 @@
 
 namespace SecTheater\Jarvis\Interfaces;
 
-interface RestrictionInterface
+interface UserInterface
 {
 }
