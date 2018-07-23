@@ -90,33 +90,34 @@ class JarvisServiceProvider extends ServiceProvider
 
     protected function registerBindings()
     {
-        $this->app->singleton('Jarvis', function () {
-            foreach ($this->models as $key => $value) {
-                $class = '\SecTheater\Jarvis\\'.ucfirst($key).'\\'.ucfirst($key).'Repository';
-                $$key = new $class(new $value());
-            }
-
-            return new \SecTheater\Jarvis\Jarvis(
-                $user,
-                $activation,
-                $role,
-                $post,
-                $comment,
-                $reply,
-                $reminder,
-                $like,
-                $tag
-            );
-        });
-        foreach ($this->models as $key => $value) {
+         foreach ($this->models as $key => $value) {
             $class = '\SecTheater\Jarvis\\'.ucfirst($key).'\\'.ucfirst($key).'Repository';
             $model = new $class(new $value());
-            if ($key == 'user' || $key == 'role' || config('jarvis.'.str_plural($key).'.register')) {
+            if ($key == 'user' || $key == 'role' || $key == 'reminder' || config('jarvis.'.str_plural($key).'.register')) {
                 $this->app->singleton(class_basename($class), function () use ($model) {
                     return $model;
                 });
             }
         }
+        $this->app->singleton('Jarvis', function () {
+            foreach ($this->models as $key => $value) {
+                $class = ucfirst($key).'Repository';
+                $$key = new $class(new $value());
+            }
+
+            return new \SecTheater\Jarvis\Jarvis(
+                $user ?? null,
+                $activation ?? null,
+                $role ?? null,
+                $post ?? null,
+                $comment ?? null,
+                $reply ?? null,
+                $reminder ?? null,
+                $like ?? null,
+                $tag ?? null
+            );
+        });
+       
     }
 
     private function registerBlades()

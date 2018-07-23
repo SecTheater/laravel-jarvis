@@ -8,19 +8,19 @@ use Hash;
 use Illuminate\Support\Facades\Route;
 use Schema;
 use SecTheater\Jarvis\Activation\ActivationException;
-use SecTheater\Jarvis\Activation\ActivationRepository;
-use SecTheater\Jarvis\Comment\CommentRepository;
+use ActivationRepository;
+use CommentRepository;
 use SecTheater\Jarvis\Exceptions\ConfigException;
 use SecTheater\Jarvis\Interfaces\UserInterface;
-use SecTheater\Jarvis\Like\LikeRepository;
-use SecTheater\Jarvis\Post\PostRepository;
-use SecTheater\Jarvis\Reminder\ReminderRepository;
-use SecTheater\Jarvis\Reply\ReplyRepository;
-use SecTheater\Jarvis\Role\RoleRepository;
+use LikeRepository;
+use PostRepository;
+use ReminderRepository;
+use ReplyRepository;
+use RoleRepository;
 use SecTheater\Jarvis\Routes\RouteRegistrar;
-use SecTheater\Jarvis\Tag\TagRepository;
+use TagRepository;
 use SecTheater\Jarvis\User\EloquentUser;
-use SecTheater\Jarvis\User\UserRepository;
+use UserRepository;
 
 class Jarvis
 {
