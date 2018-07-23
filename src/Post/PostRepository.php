@@ -2,7 +2,6 @@
 
 namespace SecTheater\Jarvis\Post;
 
-use SecTheater\Jarvis\Exceptions\ConfigException;
 use SecTheater\Jarvis\Repositories\Repository;
 
 class PostRepository extends Repository implements PostRepositoryInterface
