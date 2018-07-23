@@ -2,7 +2,6 @@
 
 namespace SecTheater\Jarvis\Reply;
 
-use SecTheater\Jarvis\Exceptions\ConfigException;
 use SecTheater\Jarvis\Repositories\Repository;
 
 class ReplyRepository extends Repository implements ReplyInterface
@@ -16,11 +15,11 @@ class ReplyRepository extends Repository implements ReplyInterface
 
     public function getApproved($relation = null, array $condition = null)
     {
-        return $this->fetchReplies($relation,$condition,true);
+        return $this->fetchReplies($relation, $condition, true);
     }
 
     public function getUnapproved($relation = null, array $condition = null)
     {
-        return $this->fetchReplies($relation,$condition,false);
+        return $this->fetchReplies($relation, $condition, false);
     }
 }

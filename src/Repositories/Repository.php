@@ -214,13 +214,14 @@ abstract class Repository implements RepositoryInterface
             return $this->model->with($relation)->withCount($count)->get();
         }
     }
-    public function fetchUser(UserInterface $user, array $condition = null ,$relation)
+
+    public function fetchUser(UserInterface $user, array $condition = null, $relation)
     {
         if (isset($condition)) {
             return $user->{$relation}()->where($condition)->get();
         }
-        return $user->{$relation};
 
+        return $user->{$relation};
     }
 
     /**
@@ -292,16 +293,18 @@ abstract class Repository implements RepositoryInterface
         if (method_exists($this, $callingMethod)) {
             return $this->{$callingMethod}(...$arguments);
         }
-        if (str_contains($method, 'fetch') && str_replace('fetch','',$method) == ucfirst($this->getModelNamePlural())) {
+        if (str_contains($method, 'fetch') && str_replace('fetch', '', $method) == ucfirst($this->getModelNamePlural())) {
             return $this->fetch(...$arguments);
         }
-        if (str_contains($method,'user') && str_replace('user','',$method) == ucfirst($this->getModelNamePlural())) {
+        if (str_contains($method, 'user') && str_replace('user', '', $method) == ucfirst($this->getModelNamePlural())) {
             if (count($arguments) == 1) {
                 $arguments[] = null;
             }
-            $arguments[] =  $this->getModelNamePlural();
-            return $this->fetchUser(... $arguments);
+            $arguments[] = $this->getModelNamePlural();
+
+            return $this->fetchUser(...$arguments);
         }
+
         return $this->model->$method(...$arguments);
     }
 }

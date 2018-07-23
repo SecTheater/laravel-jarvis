@@ -2,7 +2,6 @@
 
 namespace SecTheater\Jarvis\Comment;
 
-use SecTheater\Jarvis\Exceptions\ConfigException;
 use SecTheater\Jarvis\Repositories\Repository;
 
 class CommentRepository extends Repository implements CommentInterface
