@@ -3,7 +3,6 @@
 namespace SecTheater\Jarvis\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use SecTheater\Jarvis\Http\Requests\LoginRequest;
 
 class LoginController extends Controller

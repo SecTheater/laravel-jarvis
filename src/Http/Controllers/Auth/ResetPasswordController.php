@@ -2,12 +2,9 @@
 
 namespace SecTheater\Jarvis\Http\Controllers\Auth;
 
-use ActivationRepository as Activation;
 use App\Http\Controllers\Controller;
-use Jarvis;
 use ReminderRepository as Reminder;
 use SecTheater\Jarvis\Http\Requests\ResetPasswordRequest;
-use SecTheater\Jarvis\Http\Requests\SecurityQuestionRequest;
 use UserRepository;
 
 class ResetPasswordController extends Controller
