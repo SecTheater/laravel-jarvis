@@ -15,7 +15,9 @@ interface TokenInterface
     public function clearFor(UserInterface $user, bool $completed = false, bool $any = false):bool;
 
     public function generateToken(UserInterface $user);
+
     public function forceGenerateToken(UserInterface $user);
+
     public function regenerateToken(UserInterface $user, bool $create = false);
 
     public function removeExpired();

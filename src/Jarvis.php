@@ -2,24 +2,24 @@
 
 namespace SecTheater\Jarvis;
 
+use ActivationRepository;
 use App\User;
 use Artify\Artify\Traits\Roles\Roles;
+use CommentRepository;
 use Hash;
 use Illuminate\Support\Facades\Route;
-use Schema;
-use SecTheater\Jarvis\Activation\ActivationException;
-use ActivationRepository;
-use CommentRepository;
-use SecTheater\Jarvis\Exceptions\ConfigException;
-use SecTheater\Jarvis\Interfaces\UserInterface;
 use LikeRepository;
 use PostRepository;
 use ReminderRepository;
 use ReplyRepository;
 use RoleRepository;
+use Schema;
+use SecTheater\Jarvis\Activation\ActivationException;
+use SecTheater\Jarvis\Exceptions\ConfigException;
+use SecTheater\Jarvis\Interfaces\UserInterface;
 use SecTheater\Jarvis\Routes\RouteRegistrar;
-use TagRepository;
 use SecTheater\Jarvis\User\EloquentUser;
+use TagRepository;
 use UserRepository;
 
 class Jarvis

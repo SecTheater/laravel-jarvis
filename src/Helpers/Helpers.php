@@ -103,7 +103,7 @@ if (!function_exists('Jarvis')) {
             }
         }
         foreach (config('jarvis.models.package') as $key => $value) {
-            if ($key == 'user' || $key == 'role' ||  $key == 'reminder' || config('jarvis.'.str_plural($key).'.register')) {
+            if ($key == 'user' || $key == 'role' || $key == 'reminder' || config('jarvis.'.str_plural($key).'.register')) {
                 if (model_exists($key)) {
                     $models[$key] = config('jarvis.models.namespace').ucfirst($key);
                 } else {
@@ -115,6 +115,7 @@ if (!function_exists('Jarvis')) {
             $class = ucfirst($key).'Repository';
             $$key = new $class(new $value());
         }
+
         return new \SecTheater\Jarvis\Jarvis(
             $user,
             $activation ?? null,
