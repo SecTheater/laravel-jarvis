@@ -17,8 +17,9 @@ class BaseObserver
         'startsWithUpper' => 'ucwords',
     ];
     private $manyToManyRelationships = [
-        'role','tag'
+        'role', 'tag',
     ];
+
     protected function fireObserversListeners(Model $model)
     {
         foreach ($model->observers as $field => $listener) {
@@ -69,7 +70,7 @@ class BaseObserver
     {
         foreach (config('jarvis.models.package') as $key => $value) {
             if (model_exists($key) && config('jarvis.'.str_plural($key).'.register') && \Schema::hasTable(str_plural($key)) && method_exists($model, str_plural($key))) {
-                if (in_array($key,$this->manyToManyRelationships)) {
+                if (in_array($key, $this->manyToManyRelationships)) {
                     if ($model->{str_plural($key)}->count()) {
                         $model->{str_plural($key)}()->detach();
                     }

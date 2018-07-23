@@ -32,7 +32,7 @@ class RegisterRequest extends FormRequest
             'first_name'   => 'required|string|min:3|max:16|alpha',
             'last_name'    => 'required|string|min:3|max:16|alpha',
             'password'     => 'required|string|confirmed|min:8|max:32',
-            'location' => 'required|string|min:3|max:32',
+            'location'     => 'required|string|min:3|max:32',
         ];
     }
 }
