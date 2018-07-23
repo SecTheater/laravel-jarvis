@@ -90,7 +90,7 @@ class JarvisServiceProvider extends ServiceProvider
 
     protected function registerBindings()
     {
-         foreach ($this->models as $key => $value) {
+        foreach ($this->models as $key => $value) {
             $class = '\SecTheater\Jarvis\\'.ucfirst($key).'\\'.ucfirst($key).'Repository';
             $model = new $class(new $value());
             if ($key == 'user' || $key == 'role' || $key == 'reminder' || config('jarvis.'.str_plural($key).'.register')) {
@@ -117,7 +117,6 @@ class JarvisServiceProvider extends ServiceProvider
                 $tag ?? null
             );
         });
-       
     }
 
     private function registerBlades()
