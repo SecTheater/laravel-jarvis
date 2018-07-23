@@ -1,7 +1,7 @@
 <?php
 
 namespace SecTheater\Jarvis\User;
-
+use SecTheater\Jarvis\Post\EloquentPost;
 use SecTheater\Jarvis\Repositories\Repository;
 
 class UserRepository extends Repository implements UserInterface
@@ -13,21 +13,19 @@ class UserRepository extends Repository implements UserInterface
         $this->model = $model;
     }
 
-    public function PeopleCommentedOnAPost(\App\Post $post)
+    public function peopleCommentedOnAPost(EloquentPost $post)
     {
-        if (config('jarvis.comments.approve')) {
-            return $post->comments()->where(['approved' => true, ['user_id', '!=', $post->user->id]])->distinct()->get()->unique('user_id');
-        }
-
-        return $post->comments()->where('user_id', '!=', $post->user->id)->distinct()->get()->unique('user_id');
+      return $this->peopleRelatedToPost($post,'comments');
     }
-
-    public function PeopleRepliedOnAPost(\App\Post $post)
-    {
-        if (config('jarvis.replies.approve')) {
-            return $post->replies()->where(['approved' => true, ['user_id', '!=', $post->user->id]])->distinct()->get()->unique('user_id');
+    protected function peopleRelatedToPost(EloquentPost $post,$relation){
+        $related = $post->$relation()->where('user_id','!=' , $post->user->id);
+        if (config('jarvis.'.$relation. '.approve')) {
+            $related->whereApproved(true);
         }
-
-        return $post->replies()->where('user_id', '!=', $post->user->id)->distinct()->get()->unique('user_id');
+        return $related->distinct()->get()->unique('user_id');
+    }
+    public function peopleRepliedOnAPost(EloquentPost $post)
+    {
+      return $this->peopleRelatedToPost($post,'replies');
     }
 }

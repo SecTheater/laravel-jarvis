@@ -116,13 +116,13 @@ if (!function_exists('Jarvis')) {
             $$key = new $class(new $value());
         }
         return new \SecTheater\Jarvis\Jarvis(
-            $user ?? null,
+            $user,
             $activation ?? null,
-            $role ?? null,
+            $role,
             $post ?? null,
             $comment ?? null,
             $reply ?? null,
-            $reminder ?? null,
+            $reminder,
             $like ?? null,
             $tag ?? null
         );

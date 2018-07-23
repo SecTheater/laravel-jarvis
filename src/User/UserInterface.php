@@ -2,7 +2,10 @@
 
 namespace SecTheater\Jarvis\User;
 
+use SecTheater\Jarvis\Post\EloquentPost;
+
 interface UserInterface
 {
-    public function PeopleCommentedOnAPost(\App\Post $post);
+    public function peopleCommentedOnAPost(EloquentPost $post);
+    public function peopleRepliedOnAPost(EloquentPost $post);
 }
