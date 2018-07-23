@@ -49,7 +49,7 @@ class SectheaterJarvisTables extends Migration
         Schema::create('tags', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
-            $table->integer('admin_id');
+            $table->integer('user_id');
             $table->timestamps();
         });
         Schema::create('post_tag', function (Blueprint $table) {
@@ -139,7 +139,7 @@ class SectheaterJarvisTables extends Migration
             $table->integer('user_id')->unsigned();
             $table->boolean('completed')->default(0);
             $table->string('token')->nullable();
-            $table->timestamp('completed_at');
+            $table->timestamp('completed_at')->nullable();
             $table->timestamps();
         });
         Schema::table('reminders', function (Blueprint $table) {

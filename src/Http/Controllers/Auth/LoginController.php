@@ -15,11 +15,7 @@ class LoginController extends Controller
 
     public function postLogin(LoginRequest $request)
     {
-        $remember = false;
-        if (request('remember') === 'on') {
-            $remember = true;
-        }
-        if (\Jarvis::login($request->except('_token'), $remember)) {
+        if (jarvis()->login($request->validated(), $remember)) {
             return redirect()->home();
         }
 
@@ -28,7 +24,7 @@ class LoginController extends Controller
 
     public function logout()
     {
-        \Jarvis::logout();
+        jarvis()->logout();
 
         return redirect()->route('login')->with('success', 'Come back again whenever you can ');
     }
