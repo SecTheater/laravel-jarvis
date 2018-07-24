@@ -14,6 +14,7 @@ before_script:
   - cp .env.travis .env
   - composer self-update
   - composer install
+  - composer dump-autoload -o
   
 services : 
   -sqlite
