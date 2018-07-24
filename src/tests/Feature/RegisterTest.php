@@ -6,21 +6,24 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use SecTheater\Jarvis\Tests\TestCase;
+
 class RegisterTest extends TestCase
 {
-     use DatabaseMigrations,DatabaseTransactions;
+    use DatabaseMigrations,DatabaseTransactions;
     /**
      * A basic test example.
      *
      * @return void
      */
     protected $user;
+
     public function setUp()
     {
         parent::setUp();
         $this->seed('RolesSeeder');
         $this->withoutMiddleware();
     }
+
     /**
      *@test
      */
@@ -30,7 +33,8 @@ class RegisterTest extends TestCase
 
         $response->assertSeeText('Register');
     }
-    /**
+
+    /*
      * @test
      */
     // public function user_can_submit_register_form()

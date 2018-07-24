@@ -14,9 +14,18 @@
         "php": ">=7.0.0",
         "sectheater/artify" : "@dev"
     },
+      "require-dev": {
+        "phpunit/phpunit": "~5.7.14|~6.1|~7.0",
+        "laravel/framework": "~5.4.36|~5.5.0|~5.6.0"
+    },
     "autoload": {
          "psr-4": {
             "SecTheater\\Jarvis\\" : "src/"
+        }
+    },
+     "autoload-dev": {
+        "psr-4": {
+            "SecTheater\\Jarvis\\Tests\\": "src/tests/"
         }
     },
     "minimum-stability": "dev",
