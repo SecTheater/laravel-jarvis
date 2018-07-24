@@ -20,3 +20,10 @@ before_script:
 
 script:
   - phpunit
+  
+notifications:
+email:
+    recipients:
+        - mohammedosama@sectheater.org
+    on_success: always
+    on_failure: always
