@@ -5,8 +5,8 @@ namespace SecTheater\Jarvis\Tests\Unit;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use SecTheater\Jarvis\User\EloquentUser;
 use SecTheater\Jarvis\Tests\TestCase;
+use SecTheater\Jarvis\User\EloquentUser;
 
 class RegisterTest extends TestCase
 {

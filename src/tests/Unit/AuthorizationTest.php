@@ -4,8 +4,8 @@ namespace SecTheater\Jarvis\Tests\Unit;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use SecTheater\Jarvis\Activation\EloquentActivation;
-use SecTheater\Jarvis\Exceptions\InsufficientPermissionsException;
 use SecTheater\Jarvis\Tests\TestCase;
+
 class AuthorizationTest extends TestCase
 {
     use RefreshDatabase;
