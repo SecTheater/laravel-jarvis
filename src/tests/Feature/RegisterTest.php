@@ -4,7 +4,7 @@ namespace SecTheater\Jarvis\Tests\Feature;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Tests\TestCase;
+use SecTheater\Jarvis\Tests\TestCase;
 
 class RegisterTest extends TestCase
 {
