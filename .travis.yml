@@ -11,13 +11,10 @@ matrix:
   fast_finish: true
 
 before_script:
-  - travis_retry composer self-update
-  - travis_retry composer install --prefer-source --no-interaction         
-  - composer require --dev "laravel/laravel:5.6.*"
-  - composer update
-  - php artisan key:generate
-  - php artisan migrate --seed
-
+- cp .env.travis .env
+  - composer self-update
+  - composer install --no-interaction
+  
 script:
   - phpunit
   
