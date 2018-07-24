@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace SecTheater\Jarvis\Tests;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
