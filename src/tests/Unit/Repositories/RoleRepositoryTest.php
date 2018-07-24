@@ -6,13 +6,8 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use SecTheater\Jarvis\Activation\EloquentActivation;
 use SecTheater\Jarvis\Role\EloquentRole;
-<<<<<<< HEAD
 use SecTheater\Jarvis\Tag\EloquentTag;
 use SecTheater\Jarvis\Tests\TestCase;
-=======
-use Tests\TestCase;
->>>>>>> 719d652836f3ca31db799309eb28ae4c52608ad2
-
 class RoleRepositoryTest extends TestCase
 {
     use DatabaseMigrations,DatabaseTransactions;
