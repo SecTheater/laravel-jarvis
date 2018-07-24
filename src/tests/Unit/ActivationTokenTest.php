@@ -4,14 +4,13 @@ namespace SecTheater\Jarvis\Tests\Unit;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use SecTheater\Jarvis\Activation\EloquentActivation;
 use Tests\TestCase;
 
 class ActivationTokenTest extends TestCase
 {
-     use DatabaseMigrations,DatabaseTransactions;
+    use DatabaseMigrations,DatabaseTransactions;
+
     /**
      * A basic test example.
      *
@@ -21,14 +20,14 @@ class ActivationTokenTest extends TestCase
     {
         parent::setUp();
         $this->seed('RolesSeeder');
-        factory(\App\User::class)->create()->each(function($u){
+        factory(\App\User::class)->create()->each(function ($u) {
             $this->actingAs(\UserRepository::first());
             $u->activation()->save(factory(EloquentActivation::class)->make());
             $role = \RoleRepository::findRoleBySlug('user');
             $u->roles()->attach($role);
         });
-
     }
+
     /**
      * A basic test example.
      *
