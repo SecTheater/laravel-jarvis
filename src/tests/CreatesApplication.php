@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace SecTheater\Jarvis\Tests;
 
 use Illuminate\Contracts\Console\Kernel;
 
