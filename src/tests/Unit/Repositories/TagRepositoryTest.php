@@ -7,12 +7,8 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Collection;
 use SecTheater\Jarvis\Activation\EloquentActivation;
-<<<<<<< HEAD
 use SecTheater\Jarvis\Tag\EloquentTag;
 use SecTheater\Jarvis\Tests\TestCase;
-=======
-use Tests\TestCase;
->>>>>>> 719d652836f3ca31db799309eb28ae4c52608ad2
 
 class TagRepositoryTest extends TestCase
 {
