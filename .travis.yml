@@ -13,9 +13,10 @@ matrix:
 before_script:
   - cp .env.travis .env
   - composer self-update
-  - composer install --no-interaction
-  - composer self-update
-  - composer install --no-interaction
+  - composer install
+  
+services : 
+  -sqlite
   
 script:
   - phpunit
