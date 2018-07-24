@@ -7,16 +7,12 @@
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
          processIsolation="true"
-         stopOnFailure="false">
+         stopOnFailure="true">
     <testsuites>
-        <testsuite name="Feature">
-            <directory suffix="Test.php">/src/tests/Feature</directory>
+        <testsuite name="Jarvis Test Suite">
+            <directory>src/tests</directory>
         </testsuite>
-
-        <testsuite name="Unit">
-            <directory suffix="Test.php">/src/tests/Unit</directory>
-        </testsuite>
-    </testsuites>
+</testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./app</directory>
@@ -29,9 +25,4 @@
         <env name="QUEUE_DRIVER" value="sync"/>
         <env name="DB_DATABASE" value="database/database.sqlite"/>
       </php>
-<!--       <logging>
-    <log type="coverage-html" target="./build/coverage" charset="UTF-8"
-        yui="true" highlight="true"
-        lowUpperBound="50" highLowerBound="80" />
-</logging>
- --></phpunit>
+</phpunit>
