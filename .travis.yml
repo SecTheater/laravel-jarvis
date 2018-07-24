@@ -20,7 +20,7 @@ services :
   -sqlite
   
 script:
-  - vendr/bin/phpunit
+  - vendor/bin/phpunit
   
 notifications:
 email:
