@@ -5,13 +5,9 @@ namespace SecTheater\Jarvis\Tests\Unit;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-<<<<<<< HEAD
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use SecTheater\Jarvis\Tests\TestCase;
-=======
-use Tests\TestCase;
->>>>>>> 719d652836f3ca31db799309eb28ae4c52608ad2
 
 class LoginTest extends TestCase
 {
