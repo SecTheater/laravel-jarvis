@@ -15,6 +15,8 @@ before_script:
   - travis_retry composer install --prefer-source --no-interaction         
   - composer require --dev "laravel/laravel:5.6.*"
   - composer update
+  - php artisan key:generate
+  - php artisan migrate --seed
 
 script:
   - phpunit
