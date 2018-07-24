@@ -3,7 +3,7 @@ language: php
 php:
   - 7.1
   - 7.2
-
+sudo : required
 env:  
   - LARAVEL_VERSION=5.5.*
 
@@ -11,13 +11,13 @@ matrix:
   fast_finish: true
 
 before_script:
-- cp .env.travis .env
+  - cp .env.travis .env
   - composer self-update
   - composer install --no-interaction
   - composer self-update
   - composer install --no-interaction
   - php artisan key:generate
-- php artisan migrate
+  - php artisan migrate
   
 script:
   - phpunit
