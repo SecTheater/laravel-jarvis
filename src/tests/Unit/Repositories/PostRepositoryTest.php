@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Collection;
 use SecTheater\Jarvis\Activation\EloquentActivation;
-use Tests\TestCase;
+use SecTheater\Jarvis\Tests\TestCase;
 
 class PostRepositoryTest extends TestCase
 {

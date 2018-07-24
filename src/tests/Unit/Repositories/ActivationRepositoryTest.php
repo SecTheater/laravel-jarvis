@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Collection;
 use SecTheater\Jarvis\Activation\ActivationException;
 use SecTheater\Jarvis\Activation\EloquentActivation;
-use Tests\TestCase;
+use SecTheater\Jarvis\Tests\TestCase;
 
 class ActivationRepositoryTest extends TestCase
 {

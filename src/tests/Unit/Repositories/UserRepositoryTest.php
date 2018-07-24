@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use SecTheater\Jarvis\Activation\EloquentActivation;
-use Tests\TestCase;
+use SecTheater\Jarvis\Tests\TestCase;
 
 class UserRepositoryTest extends TestCase
 {

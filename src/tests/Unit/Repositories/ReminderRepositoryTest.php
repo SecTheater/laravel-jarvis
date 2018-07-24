@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Collection;
 use SecTheater\Jarvis\Reminder\EloquentReminder;
 use SecTheater\Jarvis\Reminder\ReminderException;
-use Tests\TestCase;
+use SecTheater\Jarvis\Tests\TestCase;
 
 class ReminderRepositoryTest extends TestCase
 {

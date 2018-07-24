@@ -11,7 +11,7 @@ use Illuminate\Support\Collection;
 use SecTheater\Jarvis\Activation\EloquentActivation;
 use SecTheater\Jarvis\Role\EloquentRole;
 use SecTheater\Jarvis\Tag\EloquentTag;
-use Tests\TestCase;
+use SecTheater\Jarvis\Tests\TestCase;
 
 class RoleRepositoryTest extends TestCase
 {

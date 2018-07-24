@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use SecTheater\Jarvis\Activation\EloquentActivation;
 use SecTheater\Jarvis\Exceptions\InsufficientPermissionsException;
-use Tests\TestCase;
+use SecTheater\Jarvis\Tests\TestCase;
 
 class AuthorizationTest extends TestCase
 {

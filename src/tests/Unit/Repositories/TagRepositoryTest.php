@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Collection;
 use SecTheater\Jarvis\Activation\EloquentActivation;
 use SecTheater\Jarvis\Tag\EloquentTag;
-use Tests\TestCase;
+use SecTheater\Jarvis\Tests\TestCase;
 
 class TagRepositoryTest extends TestCase
 {

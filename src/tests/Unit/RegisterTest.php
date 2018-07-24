@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use SecTheater\Jarvis\Activation\EloquentActivation;
 use SecTheater\Jarvis\Role\EloquentRole;
 use SecTheater\Jarvis\User\EloquentUser;
-use Tests\TestCase;
+use SecTheater\Jarvis\Tests\TestCase;
 
 class RegisterTest extends TestCase
 {

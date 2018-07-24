@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use SecTheater\Jarvis\Activation\EloquentActivation;
 use SecTheater\Jarvis\Exceptions\ConfigException;
-use Tests\TestCase;
+use SecTheater\Jarvis\Tests\TestCase;
 
 class BasicRepositoryTest extends TestCase
 {
