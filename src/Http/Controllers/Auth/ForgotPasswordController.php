@@ -23,6 +23,5 @@ class ForgotPasswordController extends Controller
             //          Mail::to($user)->send(new ResetPassword($user, $reminder));
             return redirect()->route('login')->with('success', 'Reset Code Has Been sent to your email');
         }
-
     }
 }
