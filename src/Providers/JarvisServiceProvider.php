@@ -163,12 +163,12 @@ class JarvisServiceProvider extends ServiceProvider
 
     public function __get($key)
     {
-        if (count(config('jarvis.models.user'))) {
+        if (count(config('jarvis.models.user') ?? [])) {
             foreach (config('jarvis.models.user') as $key => $value) {
                 $this->models[$key] = $value;
             }
         }
-        foreach (config('jarvis.models.package') as $key => $value) {
+        foreach (config('jarvis.models.package') ?? [] as $key => $value) {
             if (model_exists($key)) {
                 $this->models[$key] = config('jarvis.models.namespace').ucfirst($key);
             } else {
@@ -176,6 +176,6 @@ class JarvisServiceProvider extends ServiceProvider
             }
         }
 
-        return $this->models ?? null;
+        return $this->models ?? [];
     }
 }

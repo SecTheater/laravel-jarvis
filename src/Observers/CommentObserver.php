@@ -8,12 +8,17 @@ class CommentObserver extends BaseObserver
 {
     public function creating(Model $comment)
     {
-        $comment->user_id = user()->id;
+        if (auth()->check()) {
+            $comment->user_id = user()->id;
+        }
         $this->fireApprovalListeners($comment);
     }
 
     public function updating(Model $comment)
     {
+        if (auth()->check()) {
+            $comment->user_id = user()->id;
+        }
         $this->fireApprovalListeners($comment);
     }
 }
