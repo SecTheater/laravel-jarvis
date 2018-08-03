@@ -75,15 +75,15 @@ APP_URL=http://localhost:8000
 ![Installation Preview](http://sectheater.org/assets/images/doc/installation.png)
 ### 4. Sample Usage
 ##### 4.1 Registering A User 
-Whenever you try to register a user, just supply Jarivs with the data and the slug of the role which you want to assign to this user
+Whenever you try to register a user, just supply Jarivs with the data and the slug of the role which you want to assign to this user and if you wish to activate this user, pass the third argument
 ```bash
-	Jarvis::registerWithRole($data,'user')
+	Jarvis::registerWithRole($data,'user',true)
 ```
 #### 4.2 Login A User
 
 Logging a user is also an easy thing to do, just pass the data the user tries to attempt with , It can be username/email and password or whatever. Then if you want to remember the user , pass the second argument with true.
 ```bash
-	Jarvis::registerWithRole($data,true)
+	Jarvis::login($data,true) // jarvis()->login($data,true);
 ```
 
 #### 4.3 Checking For Roles.
